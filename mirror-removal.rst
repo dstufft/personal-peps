@@ -34,7 +34,7 @@ There are a number of problems with the official public mirrors:
   allowing that third party to set or read cookies on the pypi.python.org and
   python.org domain name.
 * The use of a sub domain of pypi.python.org means that the mirror operators
-  will never be able to get a certificate of their own, and giving them
+  will never be able to get a SSL certificate of their own, and giving them
   one for a python.org domain name is unlikely to happen.
 * They are often out of date, most often by several hours to a few days, but
   regularly several days and even months.
