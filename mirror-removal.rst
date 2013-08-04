@@ -58,8 +58,8 @@ public mirrors are encouraged to acquire their own domains to host their
 mirrors on if they wish to continue hosting them.
 
 
-Plan for Deprecation & Removal of the Official Public Mirrors
-=============================================================
+Plan for Deprecation & Removal
+==============================
 
 Immediately upon acceptance of this PEP documentation on PyPI will be updated
 to reflect the deprecated nature of the official public mirrors and will
