@@ -8,8 +8,8 @@ Discussions-To: distutils-sig@python.org
 Status: Draft
 Type: Process
 Content-Type: text/x-rst
-Created: 04-Aug-2012
-Post-History: 30-Aug-2002
+Created: 04-Aug-2013
+Post-History: 04-Aug-2013
 Replaces: 381
 
 
