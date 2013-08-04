@@ -31,7 +31,7 @@ a method for autodiscovery of mirrors and a consistent naming scheme.
 There are a number of problems with the official public mirrors:
 
 * They give control over a \*.python.org domain name to a third party,
-  allowing that third party to set or ready cookies on the pypi.python.org and
+  allowing that third party to set or read cookies on the pypi.python.org and
   python.org domain name.
 * The use of a sub domain of pypi.python.org means that the mirror operators
   will never be able to get a certificate of their own, and giving them
