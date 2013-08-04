@@ -82,11 +82,13 @@ Unofficial Public or Private Mirrors
 
 The mirroring protocol will continue to exist as defined in `PEP381`_ and
 people are encouraged to utilize to host unofficial public and private mirrors
-if they so desire.
+if they so desire. For operators of unofficial public or private mirrors the
+recommended mirroring client is `Bandersnatch`_.
 
 
 .. _PyPI: https://pypi.python.org/
 .. _PEP381: http://www.python.org/dev/peps/pep-0381/
+.. _Bandersnatch: https://pypi.python.org/pypi/bandersnatch
 
 
 Copyright
