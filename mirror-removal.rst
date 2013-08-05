@@ -1,4 +1,4 @@
-PEP: XXXX
+PEP: 449
 Title: Removal of Official Public PyPI Mirrors
 Version: $Revision$
 Last-Modified: $Date$
