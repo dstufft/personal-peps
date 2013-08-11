@@ -179,7 +179,7 @@ together in order to have a harmonious relationship. However the bundled
 software remains external to CPython and does not fall under the governance
 of CPython. The community has placed it's trust in the developers of this
 software and the decision to bundle them is a pragmatic decision to make the
-lives of developers simpler.
+lives of developers simpler not one to have one project subsume another.
 
 
 Backwards Compatibility
