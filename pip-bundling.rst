@@ -139,6 +139,18 @@ left up to the maintainers of the installers however if the bootstrapping is
 optional it should be opt out rather than opt in and it should default to
 allowing either networking or networkless installs.
 
+While the installers distributed by Python itself will automatically attempt
+to run ``python -m getpip``, the ``make install`` and ``make altinstall``
+commands of the source distribution will not. This is because this PEP is
+aimed at primarily helping new users as well as enabling existing users to
+reduce some repetitive steps however the primary consumers of the source
+distributions will be other distributors (such as Linux Distros) who will
+desire to not have pip installed by default using ``make``. For anyone who
+*is* actually using the source distribution from Python personally they
+are unlikely to be a new user and ``python -mgetpip`` is still not a
+particularly onerous requirement for someone advanced enough to install from
+source.
+
 
 Other Distributions
 -------------------
