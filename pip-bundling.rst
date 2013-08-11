@@ -144,8 +144,8 @@ Other Distributions
 -------------------
 
 A significant number of Python installations come from other sources such as
-Linux Distributions[#ubuntu][#debian][#fedora], OSX Package
-Managers[#homebrew], or even other python specific tools[#conda]. In order to
+Linux Distributions [#ubuntu]_ [#debian]_ [#fedora]_, OSX Package Managers
+[#homebrew]_, or even other python specific tools [#conda]_. In order to
 provide a consistent experience and to enable the benefits of this PEP it is
 recommended that these distributions ensure that the ``pip`` command is
 available and working by default when installing Python through whatever means
