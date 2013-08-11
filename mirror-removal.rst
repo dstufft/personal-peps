@@ -66,15 +66,28 @@ to reflect the deprecated nature of the official public mirrors and will
 direct users to external resources like http://www.pypi-mirrors.org/ to
 discover unofficial public mirrors if they wish to use one.
 
-On October 1st, 2013, roughly 2 months from the date of this PEP, the DNS names
-of the public mirrors ([a-g].pypi.python.org) will be changed to point back to
-PyPI which will be modified to accept requests from those domains. At this
-point in time the public mirrors will be considered deprecated.
+Mirror operators, if they wish to continue operating their mirror, should
+acquire a domain name to represent their mirror and, if they are able, a TLS
+certificate. Once they have acquired a domain they should redirect their
+assigned N.pypi.python.org domain name to their new domain. On Feb 15th, 2014
+the DNS entries for [a..z].pypi.python.org and last.pypi.python.org will be
+removed. At any time prior to Feb 15th, 2014 a mirror operator may request
+that their domain name be reclaimed by PyPI and pointed back at the master.
 
-Then, roughly 2 months after the release of the first version of pip to have
-mirroring support removed (currently slated for pip 1.5) the DNS entries for
-[a-g].pypi.python.org and last.pypi.python.org will be removed and PyPI will
-no longer accept requests at those domains.
+
+Why Feb 15th, 2014
+------------------
+
+The most critical decision of this PEP is the final cut off date. If the date
+is too soon then it needlessly punishes people by forcing them to drop
+everything to update their deployment scripts. If the date is too far away then
+the extended period of time does not help with the migration effort and merely
+puts off the migration until a later date.
+
+The date of Feb 15th, 2014 has been chosen because it is roughly 6 months from
+the date of the PEP. This should ensure a lengthy period of time to enable
+people to update their deployment procedures to point to the new domains names
+without merely padding the cut off date.
 
 
 Unofficial Public or Private Mirrors
