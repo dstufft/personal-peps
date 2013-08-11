@@ -153,6 +153,24 @@ makes the most sense for their system. An example would be using the
 "Recommends" meta-data to install the ``python-pip`` package on Ubuntu.
 
 
+Python Virtual Environments
+===========================
+
+Since Python 3.3 there has been a standard library approach to virtual
+environments for Python inside of the ``venv`` module. However experience
+has shown that very few users have begun to use this feature due to the lack
+of an installer present inside of the virtual environment by default. Instead
+users have continued to use the existing ``virtualenv`` package to create
+virtual environments which *do* include pip pre-installed inside of them.
+
+In order to make the ``venv`` module supremely more useful this PEP also
+proposes that the creation of a virtual environment using the ``venv`` module
+will cause the bootstrap script to be run as part of the creation process. This
+will allow people the same convenience inside of a virtual environment as
+outside of it and make the ``venv`` module a much better replacement for
+``virtualenv``.
+
+
 Policies & Governance
 =====================
 
