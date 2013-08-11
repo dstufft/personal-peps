@@ -1,5 +1,5 @@
 PEP: 449
-Title: Removal of Official Public PyPI Mirrors
+Title: Removal of the PyPI Mirror Auto Discovery and Naming Scheme
 Version: $Revision$
 Last-Modified: $Date$
 Author: Donald Stufft <donald@stufft.io>
@@ -16,9 +16,9 @@ Replaces: 381
 Abstract
 ========
 
-This PEP provides a path to deprecate and ultimately remove the official
-public mirroring infrastructure for `PyPI`_. It does not propose the removal
-of mirroring support in general.
+This PEP provides a path to deprecate and ultimately remove the auto discovery
+of PyPI mirrors as well as the hard coded naming scheme which requires
+delegating a domain name under pypi.python.org to a third party.
 
 
 Rationale
@@ -26,9 +26,10 @@ Rationale
 
 The PyPI mirroring infrastructure (defined in `PEP381`_) provides a means to
 mirror the content of PyPI used by the automatic installers. It also provides
-a method for autodiscovery of mirrors and a consistent naming scheme.
+a method for auto discovery of mirrors and a consistent naming scheme.
 
-There are a number of problems with the official public mirrors:
+There are a number of problems with the auto discovery protocol and the
+naming scheme:
 
 * They give control over a \*.python.org domain name to a third party,
   allowing that third party to set or read cookies on the pypi.python.org and
@@ -36,26 +37,31 @@ There are a number of problems with the official public mirrors:
 * The use of a sub domain of pypi.python.org means that the mirror operators
   will never be able to get a SSL certificate of their own, and giving them
   one for a python.org domain name is unlikely to happen.
-* They are often out of date, most often by several hours to a few days, but
-  regularly several days and even months.
-* With the introduction of the CDN on PyPI the public mirroring infrastructure
-  is not as important as it once was as the CDN is also a globally distributed
-  network of servers which will function even if PyPI is down.
-* Although there is provisions in place for it, there is currently no known
-  installer which uses the authenticity checks discussed in `PEP381`_ which
-  means that any download from a mirror is subject to attack by a malicious
-  mirror operator, but further more due to the lack of TLS it also means that
-  any download from a mirror is also subject to a MITM attack.
-* They have only ever been implemented by one installer (pip), and its
-  implementation, besides being insecure, has serious issues with performance
-  and is slated for removal with it's next release (1.5).
+* The auto discovery uses an unauthenticated protocol (DNS).
+* The lack of a TLS certificate on these domains means that clients can not
+  be sure that they have not been a victim of DNS poisoning or a MITM attack.
+* The auto discovery protocol was designed to enable a client to automatically
+  select a mirror for use. This is no longer a requirement because the CDN
+  that PyPI is now using a globally distributed network of servers which will
+  automatically select one close to the client without any effort on the
+  clients part.
+* The auto discovery protocol and use of the consistent naming scheme has only
+  ever been implemented by one installer (pip), and its implementation, besides
+  being insecure, has serious issues with performance and is slated for removal
+  with it's next release (1.5).
+* While there are provisions in `PEP381`_ that would solve *some* of these
+  issues for a dedicated client it would not solve the issues that affect a
+  users browser. Additionally these provisions have not been implemented by
+  any installer to date.
 
-Due to the number of issues, some of them very serious, and the CDN which more
-or less provides much of the same benefits this PEP proposes to first
-deprecate and then remove the public mirroring infrastructure. The ability to
-mirror and the method of mirroring will not be affected and the existing
-public mirrors are encouraged to acquire their own domains to host their
-mirrors on if they wish to continue hosting them.
+Due to the number of issues, some of them very serious, and the CDN which
+provides most of the benefit of the auto discovery and consistent naming scheme
+this PEP proposes to first deprecate and then remove the [a..z].pypi.python.org
+names for mirrors and the last.pypi.python.org name for the auto discovery
+protocol. The ability to mirror and the method of mirror will not be affected
+and will continue to exist as written in `PEP381`_. Operators of existing
+mirrors are encouraged to acquire their own domains and certificates to use for
+their mirrors if they wish to continue hosting them.
 
 
 Plan for Deprecation & Removal
@@ -90,13 +96,12 @@ people to update their deployment procedures to point to the new domains names
 without merely padding the cut off date.
 
 
-Unofficial Public or Private Mirrors
-====================================
+Public or Private Mirrors
+=========================
 
 The mirroring protocol will continue to exist as defined in `PEP381`_ and
-people are encouraged to utilize to host unofficial public and private mirrors
-if they so desire. For operators of unofficial public or private mirrors the
-recommended mirroring client is `Bandersnatch`_.
+people are encouraged to utilize to host public and private mirrors if they so
+desire. The recommended mirroring client is `Bandersnatch`_.
 
 
 .. _PyPI: https://pypi.python.org/
