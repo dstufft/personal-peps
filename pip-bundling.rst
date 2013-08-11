@@ -220,7 +220,7 @@ Including pip In the Standard Library
 -------------------------------------
 
 A simpler proposal would be to simply include pip as part of the standard
-library and remove the needed to bootstrap or bundle external software at all.
+library and remove the need to bootstrap or bundle external software at all.
 However this has a very serious side effect of removing the ability for pip
 to easily evolve. Additionally by tying it into the standard library it is tied
 to the release schedule of Python which would mean any improvements to
