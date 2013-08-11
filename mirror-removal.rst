@@ -111,7 +111,7 @@ configurations to point away from those domains this has a number of issues.
   troublesome for the small number of N.pypi.python.org domains that have
   already been reclaimed. They often times get mis-configured when things
   change on the service which often leaves them broken for months at a time
-  until somebody notices. By leaving them in we open users of these domains
+  until somebody notices. By leaving them in we leave users of these domains
   open to random breakages which are less likely to get caught or noticed.
 * People using these domains have explicitly chosen to use them for one reason
   or another. One such reason may be because they do not wish to deploy from
@@ -131,8 +131,8 @@ Public or Private Mirrors
 =========================
 
 The mirroring protocol will continue to exist as defined in `PEP381`_ and
-people are encouraged to utilize to host public and private mirrors if they so
-desire. The recommended mirroring client is `Bandersnatch`_.
+people are encouraged to to host public and private mirrors if they so desire.
+The recommended mirroring client is `Bandersnatch`_.
 
 
 .. _PyPI: https://pypi.python.org/
