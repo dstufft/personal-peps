@@ -152,19 +152,6 @@ particularly onerous requirement for someone advanced enough to install from
 source.
 
 
-Other Distributions
--------------------
-
-A significant number of Python installations come from other sources such as
-Linux Distributions [#ubuntu]_ [#debian]_ [#fedora]_, OSX Package Managers
-[#homebrew]_, or even other python specific tools [#conda]_. In order to
-provide a consistent experience and to enable the benefits of this PEP it is
-recommended that these distributions ensure that the ``pip`` command is
-available and working by default when installing Python through whatever means
-makes the most sense for their system. An example would be using the
-"Recommends" meta-data to install the ``python-pip`` package on Ubuntu.
-
-
 Python Virtual Environments
 ===========================
 
@@ -181,6 +168,43 @@ will cause the bootstrap script to be run as part of the creation process. This
 will allow people the same convenience inside of a virtual environment as
 outside of it and make the ``venv`` module a much better replacement for
 ``virtualenv``.
+
+
+Recommendations for Other Distributors
+======================================
+
+A significant number of Python installations come from other sources such as
+Linux Distributions [#ubuntu]_ [#debian]_ [#fedora]_, OSX Package Managers
+[#homebrew]_, or even other python specific tools [#conda]_. In order to
+provide a consistent experience for all Python users as well as to maintain
+compatibility with upstream Python it is recommended that:
+
+* Using whatever means makes sense for your users ensure that installing
+  Python installs pip as well. For Linux distributions this could use the
+  "Depends" or "Recommends" meta-data on Debian like systems.
+* Do not remove the bundled copy of pip.
+  * This is required for offline installation of pip into a virtual environment
+  * A similar mechanism can be found inside the "virtualenv" package.
+* Migrating build systems to utilize `pip`_ and `Wheel`_ where appropriate
+  could be a very good idea.
+
+Specifically this pep supports:
+
+* Online installation of the latest version of pip into a global Python using
+  ``python -m getpip``.
+* Offline installation of the bundled version pip into a global Python using
+  ``python -m getpip``.
+* Automatic online installation of the latest version of pip into a virtual
+  environment.
+* Automatic offline installation of the bundled version of into a virtual
+  environment.
+* ``pip install --upgrade pip`` in a global installation should not affect any
+  already created virtual environments.
+* ``pip install --upgrade pip`` in a virtual environment should not affect the
+  global installation.
+
+Any changes made to Python by a distributor *SHOULD* support all of these
+options.
 
 
 Policies & Governance
