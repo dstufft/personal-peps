@@ -96,6 +96,37 @@ people to update their deployment procedures to point to the new domains names
 without merely padding the cut off date.
 
 
+Why the DNS entries must be removed
+-----------------------------------
+
+While it would be possible to simply reclaim the domain names used in mirror
+and direct them back at PyPI in order to prevent users from needing to update
+configurations to point away from those domains this has a number of issues.
+
+* Anyone who currently has these names hard coded in their configuration has
+  them hard coded as HTTP. This means that by allowing these names to continue
+  resolving we make it simple for a MITM operator to attack users by rewriting
+  the redirect to HTTPS prior to giving it to the client.
+* The overhead of maintaining several domains pointing at PyPI has proved
+  troublesome for the small number of N.pypi.python.org domains that have
+  already been reclaimed. They often times get mis-configured when things
+  change on the service which often leaves them broken for months at a time
+  until somebody notices. By leaving them in we open users of these domains
+  open to random breakages which are less likely to get caught or noticed.
+* People using these domains have explicitly chosen to use them for one reason
+  or another. One such reason may be because they do not wish to deploy from
+  a host located in a particular country. If these domains continue to resolve
+  but do not point at their existing locations we have silently removed this
+  choice from the existing users of those domains.
+
+That being said, removing the entries *will* require users who have modified
+their configuration to either point back at the master (PyPI) or select a new
+mirror name to point at. This is regarded as a regrettable requirement to
+protect PyPI itself and the users of the mirrors from the attacks outlined
+above or, at the very least, require them to make an informed decision about
+the insecurity.
+
+
 Public or Private Mirrors
 =========================
 
