@@ -170,6 +170,43 @@ outside of it and make the ``venv`` module a much better replacement for
 ``virtualenv``.
 
 
+Reasons for a Private Bundled pip
+=================================
+
+This proposal includes a private copy of pip which is then used to either fetch
+a copy of pip from `PyPI`_ or is used to install itself. An obvious question
+would be why not simply include a public copy of pip and remove the need for
+the ``python -m getpip`` all together?
+
+* A typical version of Python far outlives a version of pip. For instance
+  Python 2.6 is still in popular use today and it was released in August of
+  2010 (or March of 2012 for source only releases). The version of pip
+  available at that time was 0.8 (or 1.1 for the source only release) while the
+  current version is 1.4.1. There have been numerous improvements to pip
+  including several major security fixes. Installing the latest version allows
+  people who are still attempting to install a particular version of Python
+  far into the future to still get a newer version of pip automatically (if
+  they have networking available) allowing us to further satisfy the goal of
+  making it easy for packaging to evolve separately from the Python release
+  schedule.
+
+  The logical place to "hook" into installing pip is during the installation of
+  Python itself as this is the time when everything else available in a default
+  installation of Python is being installed.
+* Given that we want to be able to install the latest available version of pip
+  we need code to handle finding the latest version, downloading the latest
+  version, and then installing the latest version. By including pip itself in
+  order to handle these activities the Python standard library does not need to
+  reinvent the Wheel, instead deferring the domain experts who are working on
+  pip and centralizing the efforts there.
+* Given that we also want to be able to install offline if a network connection
+  is not available, we need to have an installable copy of pip available to a
+  Python distribution to fall back to. The simplest method of doing this with
+  the least amount of new code is to steal a page from `virtualenv`_'s book
+  and simply include a pip package.
+
+
+
 Recommendations for Other Distributors
 ======================================
 
