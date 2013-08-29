@@ -195,21 +195,21 @@ Policies & Governance
 =====================
 
 The maintainers of the bundled software and the CPython core team will work
-together in order to have a harmonious relationship. However the bundled
-software remains external to CPython and does not fall under the governance
-of CPython. The community has placed it's trust in the developers of this
-software and the decision to bundle them is a pragmatic decision to make the
-lives of developers simpler not one to have one project subsume another.
+together in order to address the needs of both. The bundled software will still
+remain external to CPython and this PEP does not include CPython subsuming the
+responsibilities or decisions of the bundled software. This PEP aims to
+decrease the burden on end users wanting to use third party packages and the
+decisions inside it are pragmatic ones that represent the trust that the
+Python community has placed in the authors and maintainers of the bundled
+software.
 
 
 Backwards Compatibility
 -----------------------
 
-The ``getpip`` module itself will fall under the typical backwards
-compatibility of Python. However the details of it's implementation and how
-packages are discovered are not (due to the nature of evolving tools). The
-externally bundled software such as pip do not fall under the banner of CPython
-and thus does not fall under the backwards compatibility banner of Python.
+The public API of the ``getpip`` module itself will fall under the typical
+backwards compatibility policy of Python for it's standard library. The
+externally developed software that this PEP bundles does not.
 
 
 Security Releases
