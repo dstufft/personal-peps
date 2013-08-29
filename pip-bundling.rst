@@ -29,49 +29,53 @@ library nor does it propose any new tooling or standards.
 Rationale
 =========
 
-Currently installing third party packages into a freshly installed Python
-is not particularly easy. It requires users to know ahead of time what the
-common tools are, where they can be found, and how to install them. The effect
-of this is that third party packages tend to either document with the
-assumption that the user has already gone through this process, add repetitive
-instructions telling people how to install the installer, or to completely
-forgo the use of dependencies to ease installation concerns for their users.
+Installing a third party package into a freshly installed Python requires first
+installing the package manager. This requires users ahead of time to know what
+the package manager is, where to get them from, and how to install them. The
+effect of this is that these external projects are required to either blindly
+assume the user already has the package manager installed, needs to duplicate
+the instructions and tell their users how to install the package manager, or
+completely forgo the use of dependencies to ease installation concerns for
+their users.
 
-If a project has chosen to simply assume the user already has the tools
-available it gives users attempting to follow those instructions an unhelpful
-error message. This leaves them further confused about how to install that
-package.
+All of the available options have their own drawbacks.
 
-The duplicated nature of the instructions for the projects that choose to
-document how to install the installer has caused there to be a large corpus
-of these instructions, often times slightly different or out of date. This
-leaves new users confused as to which set of instructions they should listen.
+If a project simply assumes a user already has the tooling then they get a
+confusing error message when the installation command doesn't work. Some
+operating may ease this pain by providing a global hook that looks for commands
+that don't exist and suggest an OS package they can install to make the command
+work.
 
-For the projects that simply decided to forgo dependencies in order to not
-need to deal with the complexities of teaching their users how to use a
-package manager this has left them to one of a few bad choices. Often they
-end up "vendoring", or directly including the files from another package
-into their own package. The other thing that they might do is forgo all
-dependencies all together, choosing to utilize only what is in the standard
-library.
+If a project chooses to duplicate the installation instructions and tell their
+users how to install the package manager before telling them how to install
+their own project then whenever these instructions need updates they need
+updated by every project that has duplicated them. This will inevitably not
+happen in every case leaving many different instructions on how to install it
+many of them broken or less than optimal. These additional instructions might
+also confuse users who try to install the package manager a second time
+thinking that it's part of the instructions of installing the project.
 
-The instructions themselves are difficult to be written in a cross platform
-way. They typically involve invoking curl or wget and then invoking the
-downloaded Python file to install the packages. Additionally these scripts
-often times don't include many of the security checks available in the tools
-themselves because of the need to be a single file.
+The projects that have decided to forgo dependencies all together are forced
+to either duplicate the efforts of other projects by inventing their own
+solutions to problems or are required to simply include the other projects
+in their own source trees. Both of these options present their own problems
+either in duplicating maintenance work across the ecosystem or potentially
+leaving users vulnerable to security issues because the included code or
+duplicated efforts are not automatically updated when upstream releases a new
+version.
 
-Further more the new package standards such as `Wheel`_ do not have a built
-in method for installing if downloaded manually such as
-``python setup.py install``. The lack of a built in method for installation
-makes having a simple ability to install a downloaded file more important
-than previous to make it as simple as ``pip install downloaded-file.whl``.
+By providing the package manager by default it will be easier for users trying
+to install these third party packages as well as easier for the people
+distributing them as they no longer need to pick the lesser evil. This will
+become more important in the future as the Wheel_ package format does not have
+a built in "installer" in the form of ``setup.py`` so users wishing to install
+a Wheel package will need an installer even in the simple case.
 
-Finally making it easier to install third party packages should ideally lessen
-the desire to add anything that people might find useful to the standard
-library and instead allow the maintainers of Python to more easily say that
-a particular library belongs outside of the standard library as a third party
-package.
+Reducing the burden of actually installing a third party package should also
+decrease the pressure to add every useful module to the standard library. This
+will allow additions to the standard library to focus more on why Python should
+have a particular tool out of the box instead of needing to use the difficulty
+in installing a package as justification for inclusion.
 
 
 Explicit Bootstrapping
