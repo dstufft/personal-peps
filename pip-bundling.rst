@@ -15,7 +15,7 @@ Post-History: 04-Aug-2013
 Abstract
 ========
 
-This PEP proposed the inclusion of a method for explicitly bootstrapping pip
+This PEP proposed the inclusion of a method for explicitly bootstrapping `pip`_
 as the default package manager for Python. It also proposes that the
 distributions of Python available via Python.org will automatically run this
 explicit bootstrapping method and recommendations to third part distributors of
