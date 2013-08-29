@@ -220,35 +220,40 @@ release with the PSRT. The PSRT will then decide if the issue inside warrants
 a security release of Python.
 
 
-Counter Points
-==============
+Appendix: Rejected Proposals
+============================
 
 
 Implicit Bootstrap
 ------------------
 
-`PEP439`_ proposes a solution to the same problem this PEP does. However
-it's solution is that of an implicit bootstrap that would run the first time
-a user attempted to invoke the ``pip`` command. This is a bad idea because
-users cannot be sure when the installation of pip is occurring. This makes it
-difficult to predict if they need network access or not nor does it provide any
-no provisions for non network installs. A number of people have also raised
-concerns about the "magic"-ness of the implicit bootstrap.
+`PEP439`_, the predecessor for this PEP, proposes it's own solution. Its
+solution involves shipping a fake ``pip`` command that when executed would
+implicitly bootstrap and install pip if it does not already exist. This has
+been rejected because it is too "magical". It hides from the end user when
+exactly the pip command will be installed or that it is being installed at all.
+It also does not provide any recommendations or considerations towards
+downstream packagers who wish to manage the globally installed pip through the
+mechanisms typical for their system.
 
 
 Including pip In the Standard Library
 -------------------------------------
 
-A simpler proposal would be to simply include pip as part of the standard
-library and remove the need to bootstrap or bundle external software at all.
-However this has a very serious side effect of removing the ability for pip
-to easily evolve. Additionally by tying it into the standard library it is tied
-to the release schedule of Python which would mean any improvements to
-packaging could not be used for several years by the wider community.
+Simpler to this PEP is the proposal of just including pip in the standard
+library. This would ensure that Python always includes pip and fixes all of the
+end user facing problems with not having pip present by default. This has been
+rejected because we've learned through the inclusion and history of
+``distutils`` in the standard library that losing the ability to update the
+packaging tools independently can leave the tooling in a state of constant
+limbo. Making it unable to ever reasonably evolve in a timeframe that actually
+affects users as any new features will not be available to the general
+population for *years*.
 
-Enabling the packaging tools to progress externally to Python enables
-improvements in these areas that can be used by *all* of the Python community
-members.
+Allowing the packaging tools to progress separately from the Python release
+and adoption schedules allows the improvements to be used by *all* members
+of the Python community and not just those able to live on the bleeding edge
+of Python releases.
 
 
 .. _Wheel: http://www.python.org/dev/peps/pep-0427/
