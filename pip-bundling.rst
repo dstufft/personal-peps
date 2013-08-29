@@ -141,19 +141,19 @@ and ``make altinstall`` commands of the source distribution will not.
 Python Virtual Environments
 ===========================
 
-Since Python 3.3 there has been a standard library approach to virtual
-environments for Python inside of the ``venv`` module. However experience
-has shown that very few users have begun to use this feature due to the lack
-of an installer present inside of the virtual environment by default. Instead
-users have continued to use the existing ``virtualenv`` package to create
-virtual environments which *do* include pip pre-installed inside of them.
+Python 3.3 included a standard library approach to virtual Python environments
+through the ``venv`` module. Since it's release it has become clear that very
+few users have been willing to use this feature in part due to the lack of
+an installer present by default inside of the virtual environment. They have
+instead opted to continue using the ``virtualenv`` package which *does* include
+pip installed by default.
 
-In order to make the ``venv`` module supremely more useful this PEP also
-proposes that the creation of a virtual environment using the ``venv`` module
-will cause the bootstrap script to be run as part of the creation process. This
-will allow people the same convenience inside of a virtual environment as
-outside of it and make the ``venv`` module a much better replacement for
-``virtualenv``.
+To make the ``venv`` more useful to users it will be modified to issue the
+pip bootstrap by default inside of the new environment while creating it. This
+will allow people the same convenience inside of the virtual environment as
+this PEP provides outside of it as well as bringing the ``venv`` module closer
+to feature parity with the external ``virtualenv`` package making it a more
+suitable replacement.
 
 
 Reasons for a Private Bundled pip
