@@ -15,15 +15,15 @@ Post-History: 04-Aug-2013
 Abstract
 ========
 
-This PEP proposes the inclusion of an explicit bootstrapping method to fetch
-the common packaging tools as in use by the greater Python ecosystem. It also
-proposes for these tools to be pre-installed in the distributions of software
-provides on Python.org as well as recommendations to third party distributors
-of Python to include, in a way reasonable for their distributions, these
-common tools.
+This PEP proposed the inclusion of a method for explicitly bootstrapping pip
+as the default package manager for Python. It also proposes that the
+distributions of Python available via Python.org will automatically run this
+explicit bootstrapping method and recommendations to third part distributors of
+Python to include, in a way reasonable for their distributions, pip by default
+as well.
 
-This PEP does not propose the inclusion of any tooling to the python standard
-library nor does it propose any new tooling or standards.
+This PEP does *not* proposes the inclusion of pip to the standard library
+itself.
 
 
 Rationale
