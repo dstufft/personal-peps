@@ -81,56 +81,47 @@ in installing a package as justification for inclusion.
 Explicit Bootstrapping
 ======================
 
-This proposes an additional module added to the standard library called
-``getpip``. This module has a single function for it's public api called
-``bootstrap()``. This function will bootstrap pip, and any dependencies of
-pip, into the Python installation. It will include options for installing it
-to the user packages as well as other install time options.
+An additional module called ``getpip`` will be added to the standard library
+whose purpose is to install pip and any of its dependencies into the
+appropriate location (most commonly site-packages). It will expose a single
+callable named ``bootstrap()`` as well as offer direct execution via
+``python -m getpip``. Options for installing it such as index server,
+installation location (``--user``, ``--root``, etc) will also be available
+to enable different installation schemes.
 
-The ``getpip`` module is also directly executable using the
-``python -m getpip`` syntax. This command line form will expose all of the
-same arguments as the ``bootstrap()`` function and is expected to be the
-primary method of invoking the bootstraping.
+It is believed that users will want the most recent versions available to be
+installed so that they can take advantage of the new advances in packaging.
+Since any particular version of Python has a much longer staying power than
+a version of pip in order to satisfy a user's desire to have the most recent
+version the bootstrap will contact PyPI, find the latest version, download it,
+and then install it. This process is security sensitive, difficult to get
+right, and evolves along with the rest of packaging.
 
-It is important to balance users who will be installing this file who have
-network access and want the absolute latest version of pip with users who
-are attempting to install offline and want to be able to install some files
-that they have already downloaded previously. It is also important that we
-do not attempt to reinvent the wheel, installing a package is a domain specific
-action and is tricky to get right.
+Instead of attempting to maintain a "mini pip" for the sole purpose of
+installing pip the ``getpip`` module will, as an implementation detail, include
+a private copy of pip which will be used to discover and install pip from PyPI.
+It is important to stress that this private copy of pip is *only* an
+implementation detail and it should *not* be relied on or assumed to exist.
 
-In order to solve the above issues I propose that we include inside the
-``getpip`` module a copy of a package for pip and any dependency it might have.
-The ``getpip`` module should then attempt to use a bundled copy of pip in
-order to download and install pip and it's dependencies. If for any reason
-pip is unable to use the network to download the packages it will fall back
-to installing the bundled package files. Their should also be the ability
-to force to either using network installation or networkless installation.
+Not all users will have network access to PyPI whenever they run the bootstrap.
+In order to ensure that these users will still be able to bootstrap pip the
+bootstrap will fallback to simply installing the included copy of pip.
 
-
-Which Software
---------------
-
-The proposal is to bundle anything that is required to make the ``pip`` command
-work and be able to install packages. Currently this is `pip`_ itself as well
-as `setuptools`_ however there is a desire to make the setuptools dependency
-of pip optional and have pip install setuptools itself as required.
-
-Pip has been chosen as it is the third party installer with the largest number
-of users. Alternative installers may still be used and the bundling of pip
-should make it simpler for those alternative installers to bootstrap themselves
-as well.
+This presents a balance between giving users the latest version of pip, saving
+them from needing to immediately upgrade pip after bootstrapping it, and
+allowing the bootstrap to work offline in situations where users might already
+have packages downloaded that they wish to install.
 
 
 Updating the Bundled pip
 ------------------------
 
-It is important that the version of pip used to fetch the pip to be installed,
-as well as the bundled fall back package. The ``getpip`` module should be
-ensured to be updated to the latest version of all packages it installs before
-any official release. Ideally it should also be updated periodically with
-inside of the source tree. As part of this PEP a script will be provided to
-handle updating the bundled copies of software.
+In order to keep up with evolutions in packaging as well as providing users
+who are using the offline installation method with as recent version as
+possible the ``getpip`` module should be updates to the latest versions of
+everything it bootstraps. During the preparation for any release of Python a
+script, provided as part of this PEP, should be run to update the bundled
+packages to the latest versions.
 
 
 Pre-installation
