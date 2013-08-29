@@ -156,6 +156,41 @@ to feature parity with the external ``virtualenv`` package making it a more
 suitable replacement.
 
 
+Recommendations for Downstream Distributors
+===========================================
+
+A common source of Python installations are through downstream distributors
+such as the various Linux Distributions [#ubuntu]_ [#debian]_ [#fedora]_, OSX
+package managers [#homebrew]_, or python specific tools [#conda]_. In order to
+provide a consistent, user friendly experience to all users of Python
+regardless of how they attained Python this PEP recommends and asks that
+downstream distributors:
+
+* Ensure that whenever Python is installed pip is also installed.
+  * This may take the form of separate with dependencies on each either so that
+    installing the python package installs the pip package and installing the
+    pip package installs the Python package.
+* Do not remove the bundled copy of pip.
+  * This is required for offline installation of pip into a virtual environment.
+  * This is similar to the existing ``virtualenv`` package for which many
+    downstream distributors have already made exception to the common
+    "debundling" policy.
+* Migrate build systems to utilize `pip`_ and `Wheel`_ instead of directly
+  using ``setup.py``.
+  * This will ensure that downstream packages can utilize the new formats which
+    will not have a ``setup.py`` easier.
+* Ensure that all features of this PEP continue to work with any modifications
+  made.
+  * Online installation of the latest version of pip into a global or virtual
+    python environment using ``python -m getpip``.
+  * Offline installation of the bundled version of pp into a global or virtual
+    python environment using ``python -m getpip``.
+  * ``pip install --upgrade pip`` in a global installation should not affect
+    any already created virtual environments.
+  * ``pip install --upgrade pip`` in a virtual environment should not affect
+    the global installation.
+
+
 Reasons for a Private Bundled pip
 =================================
 
@@ -190,44 +225,6 @@ the ``python -m getpip`` all together?
   Python distribution to fall back to. The simplest method of doing this with
   the least amount of new code is to steal a page from `virtualenv`_'s book
   and simply include a pip package.
-
-
-
-Recommendations for Other Distributors
-======================================
-
-A significant number of Python installations come from other sources such as
-Linux Distributions [#ubuntu]_ [#debian]_ [#fedora]_, OSX Package Managers
-[#homebrew]_, or even other python specific tools [#conda]_. In order to
-provide a consistent experience for all Python users as well as to maintain
-compatibility with upstream Python it is recommended that:
-
-* Using whatever means makes sense for your users ensure that installing
-  Python installs pip as well. For Linux distributions this could use the
-  "Depends" or "Recommends" meta-data on Debian like systems.
-* Do not remove the bundled copy of pip.
-  * This is required for offline installation of pip into a virtual environment
-  * A similar mechanism can be found inside the "virtualenv" package.
-* Migrating build systems to utilize `pip`_ and `Wheel`_ where appropriate
-  could be a very good idea.
-
-Specifically this pep supports:
-
-* Online installation of the latest version of pip into a global Python using
-  ``python -m getpip``.
-* Offline installation of the bundled version pip into a global Python using
-  ``python -m getpip``.
-* Automatic online installation of the latest version of pip into a virtual
-  environment.
-* Automatic offline installation of the bundled version of into a virtual
-  environment.
-* ``pip install --upgrade pip`` in a global installation should not affect any
-  already created virtual environments.
-* ``pip install --upgrade pip`` in a virtual environment should not affect the
-  global installation.
-
-Any changes made to Python by a distributor *SHOULD* support all of these
-options.
 
 
 Policies & Governance
