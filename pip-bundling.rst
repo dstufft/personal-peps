@@ -1,29 +1,36 @@
-PEP: XXX
-Title: Explicit Bootstrapping of pip and Bundling of pip with Python
+PEP: 453
+Title: Explicit bootstrapping of pip in Python installations
 Version: $Revision$
 Last-Modified: $Date$
-Author: Donald Stufft <donald@stufft.io>
-BDFL-Delegate: Nick Coghlan <ncoghlan@gmail.com>
-Discussions-To: distutils-sig@python.org
+Author: Donald Stufft <donald@stufft.io>,
+        Nick Coghlan <ncoghlan@gmail.com>
 Status: Draft
 Type: Process
 Content-Type: text/x-rst
 Created: 10-Aug-2013
-Post-History: 04-Aug-2013
+Post-History: 30-Aug-2013
 
 
 Abstract
 ========
 
-This PEP proposed the inclusion of a method for explicitly bootstrapping `pip`_
-as the default package manager for Python. It also proposes that the
+This PEP proposes the inclusion of a method for explicitly bootstrapping
+`pip`_ as the default package manager for Python. It also proposes that the
 distributions of Python available via Python.org will automatically run this
-explicit bootstrapping method and recommendations to third part distributors of
-Python to include, in a way reasonable for their distributions, pip by default
-as well.
+explicit bootstrapping method and a recommendation to third party
+redistributors of Python to also provide pip by default (in a way reasonable
+for their distributions).
 
-This PEP does *not* proposes the inclusion of pip to the standard library
-itself.
+This PEP does *not* proposes the inclusion of pip itslef in the standard
+library.
+
+
+Proposal
+========
+
+This PEP proposes the inclusion of a ``getpip`` bootstrapping module in
+Python 3.4, as well as in the upcoming maintenance releases of Python 2.7
+and Python 3.3.
 
 
 Rationale
@@ -49,11 +56,19 @@ work.
 If a project chooses to duplicate the installation instructions and tell their
 users how to install the package manager before telling them how to install
 their own project then whenever these instructions need updates they need
-updated by every project that has duplicated them. This will inevitably not
+updating by every project that has duplicated them. This will inevitably not
 happen in every case leaving many different instructions on how to install it
 many of them broken or less than optimal. These additional instructions might
 also confuse users who try to install the package manager a second time
 thinking that it's part of the instructions of installing the project.
+
+The problem of stale instructions can be alleviated by referencing `pip's
+own bootstrapping instructions
+<http://www.pip-installer.org/en/latest/installing.html>`__, but the user
+experience involved still isn't good (especially on Windows, where
+downloading and running a Python script with the default OS configuration is
+significantly more painful than downloading and running a binary executable
+or installer).
 
 The projects that have decided to forgo dependencies all together are forced
 to either duplicate the efforts of other projects by inventing their own
@@ -119,9 +134,12 @@ Updating the Bundled pip
 In order to keep up with evolutions in packaging as well as providing users
 who are using the offline installation method with as recent version as
 possible the ``getpip`` module should be updates to the latest versions of
-everything it bootstraps. During the preparation for any release of Python a
+everything it bootstraps. During the preparation for any release of Python, a
 script, provided as part of this PEP, should be run to update the bundled
 packages to the latest versions.
+
+This means that maintenance releases of the CPython installers will include
+an updated version of the ``getpip`` bootstrap module.
 
 
 Pre-installation
@@ -136,6 +154,13 @@ optional it should be opt out rather than opt in.
 The Windows and OSX installers distributed by Python.org will automatically
 attempt to run ``python -m getpip`` by default however the ``make install``
 and ``make altinstall`` commands of the source distribution will not.
+
+Keeping the pip bootstrapping as a separate step for make based
+installations should minimise the changes CPython redistributors need to
+make to their build processes. Avoiding the layer of indirection through
+make for the getpip invocation also ensures those installing from a custom
+source build can easily force an offline installation of pip, install it
+from a private index server, or skip installing pip entirely.
 
 
 Python Virtual Environments
@@ -167,23 +192,32 @@ regardless of how they attained Python this PEP recommends and asks that
 downstream distributors:
 
 * Ensure that whenever Python is installed pip is also installed.
+
   * This may take the form of separate with dependencies on each either so that
     installing the python package installs the pip package and installing the
     pip package installs the Python package.
+
 * Do not remove the bundled copy of pip.
+
   * This is required for offline installation of pip into a virtual environment.
   * This is similar to the existing ``virtualenv`` package for which many
     downstream distributors have already made exception to the common
     "debundling" policy.
+  * This does mean that if ``pip`` needs to be updated due to a security
+    issue, so does the bundled version in the ``getpip`` bootstrap module
+
 * Migrate build systems to utilize `pip`_ and `Wheel`_ instead of directly
   using ``setup.py``.
+
   * This will ensure that downstream packages can utilize the new formats which
     will not have a ``setup.py`` easier.
+
 * Ensure that all features of this PEP continue to work with any modifications
   made.
+
   * Online installation of the latest version of pip into a global or virtual
     python environment using ``python -m getpip``.
-  * Offline installation of the bundled version of pp into a global or virtual
+  * Offline installation of the bundled version of pip into a global or virtual
     python environment using ``python -m getpip``.
   * ``pip install --upgrade pip`` in a global installation should not affect
     any already created virtual environments.
@@ -208,7 +242,7 @@ Backwards Compatibility
 -----------------------
 
 The public API of the ``getpip`` module itself will fall under the typical
-backwards compatibility policy of Python for it's standard library. The
+backwards compatibility policy of Python for its standard library. The
 externally developed software that this PEP bundles does not.
 
 
@@ -240,7 +274,7 @@ mechanisms typical for their system.
 Including pip In the Standard Library
 -------------------------------------
 
-Simpler to this PEP is the proposal of just including pip in the standard
+Similar to this PEP is the proposal of just including pip in the standard
 library. This would ensure that Python always includes pip and fixes all of the
 end user facing problems with not having pip present by default. This has been
 rejected because we've learned through the inclusion and history of
