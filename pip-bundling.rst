@@ -178,7 +178,9 @@ pip bootstrap by default inside of the new environment while creating it. This
 will allow people the same convenience inside of the virtual environment as
 this PEP provides outside of it as well as bringing the ``venv`` module closer
 to feature parity with the external ``virtualenv`` package making it a more
-suitable replacement.
+suitable replacement. In the case that a user does not wish to have pip
+bootstrapped into their virtual environment a ``--without-pip`` option will be
+added.
 
 
 Recommendations for Downstream Distributors
