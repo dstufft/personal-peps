@@ -146,10 +146,10 @@ Pre-installation
 ================
 
 During the installation of Python from Python.org ``python -m getpip`` should
-be executed. Leaving people using the Windows or OSX installers with a working
+be executed, leaving people using the Windows or OSX installers with a working
 copy of pip once the installation has completed. The exact method of this is
-left up to the maintainers of the installers however if the bootstrapping is
-optional it should be opt out rather than opt in.
+left up to the maintainers of the installers, however if the bootstrapping is
+optional it should be opt-out rather than opt-in.
 
 The Windows and OSX installers distributed by Python.org will automatically
 attempt to run ``python -m getpip`` by default however the ``make install``
