@@ -35,8 +35,7 @@ Proposal
 ========
 
 This PEP proposes the inclusion of an ``ensurepip`` bootstrapping module in
-Python 3.4, as well as in the next maintenance releases of Python 3.3 and
-2.7.
+Python 3.4, as well as in the next maintenance release of Python 2.7.
 
 This PEP does *not* propose making pip (or any dependencies) directly
 available as part of the standard library. Instead, pip will be a
@@ -237,11 +236,11 @@ carried out in any order):
 * the first step would add the ``ensurepip`` module and the private copies
   of the most recently released versions of pip and setuptools, and update
   the "Installing Python Modules" documentation. This change
-  would be applied to Python 2.7, 3.3 and 3.4.
+  would be applied to Python 2.7 and 3.4.
 * the Windows installer would be updated to offer the new ``pip``
-  installation option for Python 2.7.6, 3.3.3 and 3.4.0.
+  installation option for Python 2.7.6 and 3.4.0.
 * the Mac OS X installer would be updated to offer the new ``pip``
-  installation option for Python 2.7.6, 3.3.3 and 3.4.0.
+  installation option for Python 2.7.6 and 3.4.0.
 * the ``venv`` module and ``pyvenv`` command would be updated to make use
   of ``ensurepip`` in Python 3.4+
 * the PATH handling and ``sysconfig`` directory layout on Windows would be
@@ -450,20 +449,48 @@ releases.
 Feature addition in maintenance releases
 ========================================
 
-Adding a new module to the standard library in Python 2.7 and 3.3
-maintenance releases breaks the usual policy of "no new features in
-maintenance releases".
+Adding a new module to the standard library in Python 2.7 maintenance releases
+breaks the usual policy of "no new features in maintenance releases". However
+this PEP proposes to do that because of the expected life span of 2.7 release,
+it's unique status as the end of the 2.x series, the abnormal situation that
+a package manager has, and the positive impact that this PEP can have *if* the
+restriction is relaxed.
 
-It is being proposed in this case as the current bootstrapping issues for
-the third-party Python package ecosystem greatly affects the experience of
-new users, especially on Python 2 where many Python 3 standard library
-improvements are available as backports on PyPI, but are not included in
-the Python 2 standard library.
+The primary purpose of the policy of "no new features in a maintenance release"
+is to provide a stable base for users to work against where they do not need
+to typically worry about the differences between any differences in the patch
+release. One of the benefits of doing this is that as long as users stay
+on that release they can be reasonably assured that their software will not
+break. Nonetheless this PEP proposes to make an exception to that rule.
 
-By updating Python 2.7, 3.3 and 3.4 to easily bootstrap the PyPI ecosystem,
-this change should aid the vast majority of current Python users, rather
-than only those with the freedom to adopt Python 3.4 as soon as it is
-released.
+As the final release of the 2.x series, 2.7 is going to share a special place
+as a release that is supported by CPython for a much longer time and it will be
+supported by downstream distributors for a much longer time than that. Due to
+the length of time it will be supported many projects will either need or want
+to continue supporting it for a long time as well. Projects like Django, who
+has historically been against adding dependencies *because* of the lack of
+built in tools, are roughly looking at a ~2 year period of time at a minimum
+until they can realistically begin to rely on the ecosystem outside of CPython.
+
+It is believed that this addition does not pose a very realistic risk of any
+type of regression. The proposal does not cause anything in the standard
+library to use this new package, so there should be no changes in behavior
+in the standard library modules. Additionally, unless their is an unlikely
+collision in the ``ensurepip`` name, third party modules will also not be
+importing this module in any sort of automatic or compelled fashion.
+
+A counter argument to this is that by making this exception that it opens
+up the possibility for other exceptions to be made. This is a possibility,
+however the nature of this PEP should actually make this *less* likely. As new
+features get added to CPython it is common for a backport module to be made
+available on PyPI and with the inclusion of pip those backports can be
+installed as simply as ``pip install <backportname>`` thereby actually
+**strengthening** the argument against inclusion of new features in 2.7.
+
+Essentially because of the extremely high utility of this change to the wider
+Python community, especially to educators and new users, and the realistically
+small chance of regression due to the inclusion of the module it is the opinion
+of this PEP that it should be exempted from the rules.
 
 
 Uninstallation
@@ -501,8 +528,8 @@ during installation, this PEP proposes that the Windows installer (and
 - add PythonXY\bin to the Windows PATH (in addition to PythonXY) when the
   PATH modification option is enabled during installation
 
-For Python 2.7 and 3.3, it is proposed that the only change be the one
-to bootstrap ``pip`` by default.
+For Python 2.7, it is proposed that the only change be the one to bootstrap
+``pip`` by default.
 
 This means that, for Python 3.3, the most reliable way to invoke pip on
 Windows (without tinkering manually with PATH) will actually be
