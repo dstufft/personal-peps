@@ -35,7 +35,7 @@ Proposal
 ========
 
 This PEP proposes the inclusion of an ``ensurepip`` bootstrapping module in
-Python 3.4, as well as in the next maintenance release of Python 2.7.
+Python 3.4, as well as in the next maintenance release of Python 2.7 and 3.3.
 
 This PEP does *not* propose making pip (or any dependencies) directly
 available as part of the standard library. Instead, pip will be a
@@ -236,11 +236,11 @@ carried out in any order):
 * the first step would add the ``ensurepip`` module and the private copies
   of the most recently released versions of pip and setuptools, and update
   the "Installing Python Modules" documentation. This change
-  would be applied to Python 2.7 and 3.4.
+  would be applied to Python 2.7, 3.3, and 3.4.
 * the Windows installer would be updated to offer the new ``pip``
-  installation option for Python 2.7.6 and 3.4.0.
+  installation option for Python 2.7.6, 3.3.3 and 3.4.0.
 * the Mac OS X installer would be updated to offer the new ``pip``
-  installation option for Python 2.7.6 and 3.4.0.
+  installation option for Python 2.7.6, 3.3.3 and 3.4.0.
 * the ``venv`` module and ``pyvenv`` command would be updated to make use
   of ``ensurepip`` in Python 3.4+
 * the PATH handling and ``sysconfig`` directory layout on Windows would be
@@ -449,12 +449,12 @@ releases.
 Feature addition in maintenance releases
 ========================================
 
-Adding a new module to the standard library in Python 2.7 maintenance releases
-breaks the usual policy of "no new features in maintenance releases". However
-this PEP proposes to do that because of the expected life span of 2.7 release,
-it's unique status as the end of the 2.x series, the abnormal situation that
-a package manager has, and the positive impact that this PEP can have *if* the
-restriction is relaxed.
+Adding a new module to the standard library in Python 2.7, and 3.3 maintenance
+releases breaks the usual policy of "no new features in maintenance releases".
+However this PEP proposes to do that because of the expected life span of 2.7
+release, it's unique status as the end of the 2.x series, the abnormal
+situation that a package manager has, and the positive impact that this PEP can
+have *if* the restriction is relaxed.
 
 The primary purpose of the policy of "no new features in a maintenance release"
 is to provide a stable base for users to work against where they do not need
@@ -528,8 +528,8 @@ during installation, this PEP proposes that the Windows installer (and
 - add PythonXY\bin to the Windows PATH (in addition to PythonXY) when the
   PATH modification option is enabled during installation
 
-For Python 2.7, it is proposed that the only change be the one to bootstrap
-``pip`` by default.
+For Python 2.7 and 3.3, it is proposed that the only change be the one to
+bootstrap ``pip`` by default.
 
 This means that, for Python 3.3, the most reliable way to invoke pip on
 Windows (without tinkering manually with PATH) will actually be
