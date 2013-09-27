@@ -662,6 +662,28 @@ Appendix: Rejected Proposals
 ============================
 
 
+Include pip *only* inside the installers in Python 2.7, and 3.3
+---------------------------------------------------------------
+
+An alternative to making an exception to the "no new features" policy in Python
+2.7 and 3.3 would be to simply bundle pip with the installer and do not modify
+the source tree at all. The motivation behind this modification is that adding
+a new feature in a maintenance release is a risky proposition and that doing it
+in this way doesn't violate that policy.
+
+This has been rejected because:
+
+* It only doesn't violate the maintenance release policy due to a technicality
+  and in spirit it still adds a new feature to Python 2.7 and 3.3 but in a
+  less than ideal way.
+* Making it an installer only feature prevents the buildbots from being able
+  to run automatic tests against it, which would make ensuring that this
+  feature remains working a much more difficult task.
+* Python 2.7 will remain in active use for quite a long time, adding proper
+  support for this feature will *greatly* ease the pain of new users, who
+  are still likely going to want to use Python 2.7.
+
+
 Automatically contacting PyPI when bootstrapping pip
 ----------------------------------------------------
 
