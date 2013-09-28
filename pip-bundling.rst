@@ -494,7 +494,9 @@ installed as simply as ``pip install <backportname>`` thereby actually
 Essentially because of the extremely high utility of this change to the wider
 Python community, especially to educators and new users, and the realistically
 small chance of regression due to the inclusion of the module it is the opinion
-of this PEP that it should be exempted from the rules.
+of this PEP that it should be exempted from the rules. Additionally this change
+allows the pip bootstrapping instructions to merely become "Install the latest
+maintenance release of Python 2.7, 3.3, or 3.4+".
 
 
 Uninstallation
