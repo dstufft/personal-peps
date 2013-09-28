@@ -420,6 +420,10 @@ Once pip is able to run ``pip install --upgrade pip`` without needing
 ``setuptools`` installed first, then the private copy of ``setuptools``
 will be removed from ``ensurepip`` in subsequent CPython releases.
 
+If setuptools is installed then an unmodified copy of it must be installed,
+including the ``easy_install`` script if the upstream setuptools continues
+to include it.
+
 
 Updating the private copy of pip
 --------------------------------
