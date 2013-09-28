@@ -657,6 +657,29 @@ prior to release with the Python Security Response Team
 warrants a security release of CPython with an updated private copy of
 ``pip``.
 
+Licenses
+--------
+
+Pip is currently licensed as 1 Clause BSD, and it contains code taken from
+other projects. Additionally this PEP will include setuptools until such time
+as pip no longer requires it. The licenses for these appear in the table below.
+
+================= ============
+     Project        License
+================= ============
+requests           Apache 2.0
+six               1 Clause BSD
+html5lib          1 Clause BSD
+distlib                PSF
+colorama          3 Clause BSD
+Mozilla CA Bundle      LGPL
+setuptools             PSF
+================= ============
+
+All of these licenses should be compatible with the PSF license. Additionally
+it is unclear if a CA Bundle is copy-writable material and thus if it needs
+or can be licensed at all.
+
 
 Appendix: Rejected Proposals
 ============================
