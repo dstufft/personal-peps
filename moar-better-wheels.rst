@@ -19,10 +19,10 @@ Abstract
 This PEP refines the specification of Wheel from PEP 427 and defines version
 2.0 of the Wheel format.
 
-      The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
-      "OPTIONAL" in this document are to be interpreted as described in
-      RFC 2119.
+    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+    NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
+    "OPTIONAL" in this document are to be interpreted as described in
+    RFC 2119.
 
 
 Rationale
@@ -42,8 +42,8 @@ work with Wheel 2.0 but instead makes it easier for a *human* to manually
 interact with the contents of a Wheel 2.0 file.
 
 
-Specification
-=============
+Format Specification
+====================
 
 
 Name and Version Normalization
@@ -62,11 +62,10 @@ Container and Compression
 -------------------------
 
 A Wheel file **MUST** be a Zip-format archive which **SHOULD** be compatible
-with the Zip64 extension for archive sizes larger than 4GB. For compatibility
-with Python installations that do not have the optional zlib module
-implementations **MUST** support uncompressed Wheels through the ``ZIP_STORED``
-constant and **SHOULD** support Wheels compressed with the deflate algorithm
-through the ``ZIP_DEFLATE`` constant.
+with the Zip64 extension. For compatibility with Python installations that do
+not have the optional zlib module implementations **MUST** support uncompressed
+Wheels through the ``ZIP_STORED`` constant and **SHOULD** support Wheels
+compressed with the deflate algorithm through the ``ZIP_DEFLATE`` constant.
 
 
 Archive File Layout
@@ -74,21 +73,21 @@ Archive File Layout
 
 .. code::
 
-   .
-   ├── {name}-{version}.dist-info/
-   │   ├── METADATA
-   │   ├── WHEEL
-   │   └── wheel.json
-   ├── {name}-{version}.data/
-   │   ├── data/
-   │   ├── include/
-   │   ├── platinclude/
-   │   ├── platlib/
-   │   ├── platstdlib/
-   │   ├── purelib/
-   │   ├── scripts/
-   │   └── stdlib/
-   └── __main__.py
+    .
+    ├── {name}-{version}.dist-info/
+    │   ├── METADATA
+    │   ├── WHEEL
+    │   └── wheel.json
+    ├── {name}-{version}.data/
+    │   ├── data/
+    │   ├── include/
+    │   ├── platinclude/
+    │   ├── platlib/
+    │   ├── platstdlib/
+    │   ├── purelib/
+    │   ├── scripts/
+    │   └── stdlib/
+    └── __main__.py
 
 
 A Wheel **MUST** have a dist-info directory where the directory name **MUST**
@@ -106,8 +105,77 @@ follow the format ``{name}-{version}.data``.
 A Wheel **MAY** have a single sub directory per sysconfig path name within the
 ``{name}-{version}.data`` directory.
 
+A Wheel **SHOULD** not contain compiled bytecode such as ``.pyc`` or ``.pyo``
+files.
+
 A Wheel **MAY** be made into an executable Wheel by including a ``__main__.py``
 in the root of the Wheel file.
+
+
+Files
+-----
+
+:WHEEL:
+    The ``WHEEL`` file is a simple text based ``Key: Value`` format as defined
+    in RFC822 which can be parsed by the ``email`` package in the Python
+    standard library and which **MUST** be encoded using utf8.
+
+    The ``WHEEL`` file **MUST** contain the key ``Wheel-Version``. The value of
+    ``Wheel-Version`` **MUST** be at least ``2.0`` but **MAY** be higher in
+    later revisions to the specification. Installers **MUST** verify that the
+    they support the Wheel version specified. They **SHOULD** emit a warning if
+    the minor version is higher than their supported version and **MUST** not
+    proceed with installation if the major version is higher than their
+    supported version.
+
+    The ``WHEEL`` file **MAY** contain other keys. Installers **SHOULD** ignore
+    any unknown keys.
+
+:METADATA:
+    The ``METADATA`` file is a metadata file as defined in PEP 345 or PEP 314.
+    It **MUST** be at least version 1.1 of the Python Package Metadata and
+    **MUST NOT** be a version with a major number of other than 1.
+
+    Installers **MAY** parse this file to discover metadata about the project
+    release contained within this Wheel such as additional dependencies that
+    this project requires.
+
+
+:__main__.py:
+    The ``__main__.py`` file is a standard Python entry point for executable
+    zip archives the existence of which causes the Wheel to become directly
+    executable by Python.
+
+    It is **RECOMMENDED** that this file be a simple template that sets up the
+    sys.path entries to add the Wheel's ``purelib`` and ``platlib`` directories
+    to the ``sys.path`` and then import a defined function from within the
+    project and then executes it.
+
+
+Installation
+============
+
+#. Installer validates that the ``Wheel-Version`` of the Wheel falls within
+   their supported range, optionally emitting warnings if needed.
+
+#. Installer moves each subtree of the ``{name}-{version}.data`` directory
+   into it's destination path using the corresponding key in
+   ``sysconfig.get_path(subtree_name)``. Installers **MUST** move every subtree
+   and **MUST** not proceed if a subtree does not have a corresponding entry
+   from ``sysconfig.get_path()``.
+
+#. Installers **MAY** compile any new .py file to a .pyc or .pyo
+
+#. Installers **SHOULD** rewrite any script (installed into the sysconfig
+   scripts directory) where the first line of the script is ``#!python`` or
+   ``#!pythonw`` to point to the current interpreter.
+
+#. Installers **SHOULD** ensure that any script (installed into the sysconfing
+   scripts directory) has had the executable file permission set on platforms
+   that support it.
+
+#. Installers **MUST** ensure that a PEP 376 compatible dist-info directory
+   is installed in the purelib sysconfig path.
 
 
 Backwards Incompatibilities
@@ -178,6 +246,12 @@ TODO:
   fun things.
 * Decide about wheel.json, Key: Value is lame but so is WHEEL + wheel.json,
   however the WHEEL file is required for compatibility
+* Figure out if executable Wheels should add stdlib and platstdlib to the
+  sys.path as well.
+* setuptools entry points are a non standard piece of metadata but pip has
+  support for generating them, should the Wheel spec? (I think No?)
+* Figure out if shebang writing makes any sense on Windows
+* Does PEP 376 go in purelib? platlib? Something else?
 
 
 Copyright
