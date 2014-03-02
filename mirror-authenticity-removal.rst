@@ -51,10 +51,9 @@ accessing it.
 Instead of actually removing it from the current code base (PyPI 1.0) the
 current work to replace PyPI 1.0 with a new code base (PyPI 2.0) will simply
 not implement this API. This would cause the API to be "removed" when the
-switch from 1.0 to 2.0 occurs.
-
-
-
+switch from 1.0 to 2.0 occurs. If PyPI 2.0 has not been deployed in place of
+PyPI 1.0 by Sept 01 2014 then this PEP will take affect in the PyPI 1.0 code
+base instead.
 
 
 References
