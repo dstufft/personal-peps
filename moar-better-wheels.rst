@@ -174,12 +174,40 @@ Installation
    scripts directory) has had the executable file permission set on platforms
    that support it.
 
-#. Installers **MUST** ensure that a PEP 376 compatible dist-info directory
-   is installed in the purelib sysconfig path.
+#. Installers **MUST** move the dist-info directory into the sysconfig purelib
+   path and **MUST** generate any required files to ensure it is a PEP 376
+   directory. Installers **SHOULD** keep any additional files not defined in
+   PEP 376 in the Wheel's dist-info directory intact when moving it into it's
+   destination location. If a Wheel contains a ``RECORD``, ``INSTALLER``, or
+   ``REQUESTED`` file the installer **SHOULD** regenerate these files to
+   ensure compliance with PEP 376.
+
+
+Extension
+=========
+
+Wheel 2.0 is designed to allow extension through adding additional metadata
+files in the ``dist-info`` directories. At the time of this writing it
+assumed that the legacy non-standard metadata emitted by setuptools such as
+``entry_points.txt`` will be implemented in installers through this simple
+extension protocol.
+
+Third parties **MAY** extend a Wheel to contain extra types of information by
+including additional files in the Wheel's ``dist-info`` directory. Installers
+**SHOULD** ensure that this data is maintained in the destination's
+``dist-info`` directory.
 
 
 Backwards Incompatibilities
 ===========================
+
+Removal of the "Simple" Installer
+---------------------------------
+
+Wheel 1.0 was designed to be able to have a subset of Wheels installable
+by simply executing the ``unzip`` command such as
+``unzip <wheel> -d /usr/local/lib/pythonX.Y/site-packages/``. Wheel 2.0 removes
+the design goal of being able to use unzip as a simple uninstaller for Wheels.
 
 
 Specialized Installer vs "Simple" Installer
