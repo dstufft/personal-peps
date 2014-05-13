@@ -35,6 +35,98 @@ exist today in the state that they do documented in PEP438. For the sake of
 brevity I will not duplicate that and instead urge readers to first take a look
 at PEP438 for background.
 
+There are currently two primary ways for a project to make itself available
+without directly hosting the package files on PyPI. They can either include
+links to the package files in the simpler installer API or they can publish
+a custom package index which contains their project.
+
+
+Custom Additional Index
+-----------------------
+
+Each installer which speaks to PyPI offers a mechanism for the user invoking
+that installer to provide additional custom locations to search for files
+during the dependency resolution phase. For pip these locations can be
+configured per invocation, per shell environment, per requirements file, per
+virtual environment, and per user.
+
+The use of a additional indexes instead of external links on the simple
+installer API provides a simple clean interface which is consistent with the
+how most Linux package systems work (apt-get, yum, etc). More importantly it
+works the same even for projects which are commercial or otherwise have their
+access restricted in some form (password, IP ACLs etc) while the external
+links method only realistically works for projects which do not have their
+access restricted.
+
+Compared to the complex rules which a project must be aware of to prevent
+themselves from being considered unsafely hosted setting up an index is fairly
+trivial and in the simplest case does not require anything more than a
+filesystem and a standard web server such as Nginx.
+
+Example Index with Nginx
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Create a root directory for your index, for the purposes of the example
+   I'll assume you've chosen ``/var/www/index.example.com/``.
+2. Inside of this root directory, create a directory for each project such
+   as ``mkdir -p /var/www/index.example.com/{foo,bar,other}/``.
+3. Place the package files for each project in their respective folder,
+   creating paths like ``/var/www/index.example.com/foo/foo-1.0.tar.gz``.
+4. Configure nginx to serve the root directory, ideally with TLS, with the
+   autoindex directive enable (see below for example configuration).
+
+    ::
+
+        server {
+            listen 443 ssl;
+            server_name index.example.com;
+
+            ssl_certificate     /etc/pki/tls/certs/index.example.com.crt;
+            ssl_certificate_key /etc/pki/tls/certs/index.example.com.key;
+
+            root /var/www/index.example.com;
+
+            autoindex on;
+        }
+
+
+Examples of Additional indexes with pip
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Invocation:**
+
+    ::
+        $ pip install --extra-index-url https://pypi.example.com/ foobar
+
+**Shell Environment:**
+
+    ::
+        $ export PIP_EXTRA_INDEX_URL=https://pypi.example.com/
+        $ pip install foobar
+
+**Requirements File:**
+
+    ::
+        $ echo "--extra-index-url https://pypi.example.com/\nfoobar" > requirements.txt
+        $ pip install -r requirements.txt
+
+**Virtual Environment:**
+
+    ::
+        $ python -m venv myvenv
+        $ echo "[global]\nextra-index-url = https://pypi.exmaple.com/" > myvenv/pip.conf
+        $ myvenv/bin/pip install foobar
+
+**User:**
+
+    ::
+        $ echo "[global]\nextra-index-url = https://pypi.exmaple.com/" >~/.pip/pip.conf
+        $ pip install foobar
+
+
+External Links on the Simple Installer API
+------------------------------------------
+
 PEP438 proposed a system of classifying file links as either internal,
 external, or unsafe. It recommended that by default only internal links would
 be installed by an installer however users could opt into external links on
@@ -103,23 +195,21 @@ increasingly annoyed and frustrated at the intermediate step and will likely
 eventually just start skipping it.
 
 
-Utilize Additional Indexes
-==========================
+External Index Discovery
+========================
 
-It is the opinion of this PEP that package authors *must* be allowed to host
-their files off of PyPI if they desire, and that installing projects hosted
-in this fashion must be made reasonably easy to do.
+One of the problems with using an additional index is one of discovery. Users
+will not generally be aware that an additional index is required at all much
+less where that index can be found. Projects can attempt to convey this
+information using their description on the PyPI page however that excludes
+people who discover their project organically through ``pip search``.
 
-Both pip and easy_install support the concept of additional URLs to use to
-locate files during the dependency resolution phase. This provides an easy
-way for end users to opt into installing projects from locations external to
-PyPI that also ensures they are aware that they are doing so.
-
-To support projects that wish to externally host their files, regardless of
-reason, PyPI will gain the ability for project's to register external index
-URLs and additionally an associated comment for each. These URLs will be made
-available on the simple page however they will not be linked or provided in a
-form that older installers will automatically search them.
+To support projects that wish to externally host their files and to enable
+users to easily discover what additional indexes are required, PyPI will gain
+the ability for project's to register external index URLs and additionally an
+associated comment for each. These URLs will be made available on the simple
+page however they will not be linked or provided in a form that older
+installers will automatically search them.
 
 When an installer fetches the simple page for a project, if it finds this
 additional meta-data and it cannot find any files for that project in it's
