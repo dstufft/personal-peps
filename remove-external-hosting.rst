@@ -31,7 +31,9 @@ Rationale
 =========
 
 There is a long history on PyPI that explains why externally hosted files
-exist today in the state that they do documented in PEP438.
+exist today in the state that they do documented in PEP438. For the sake of
+brevity I will not duplicate that and instead urge readers to first take a look
+at PEP438 for background.
 
 PEP438 proposed a system of classifying file links as either internal,
 external, or unsafe. It recommended that by default only internal links would
