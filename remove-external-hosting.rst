@@ -249,7 +249,9 @@ email that all external links will be removed from the installer APIs. This
 email *must* include instructions for converting their projects to be hosted
 on PyPI and *must* include links to a script or package that will enable them
 to enter their PyPI credentials and package name and have it automatically
-download and re-host all of their files on PyPI.
+download and re-host all of their files on PyPI. This email almost *must*
+include instructions for setting up their own index and registering that with
+PyPI.
 
 Five months after the initial email, another email must be sent to any projects
 still relying on external hosting. This email will include all of the same
