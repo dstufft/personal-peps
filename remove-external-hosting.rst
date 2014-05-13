@@ -168,16 +168,16 @@ Finally a month later all projects will be switched to the ``pypa-only`` mode
 and PyPI will be modified to remove the externally linked files functionality.
 
 
-Statistics
-==========
+Impact
+======
 
-=================  ===========
-     Hosting         Projects
-=================  ===========
-Hosted on PyPI      37779
-Hosted Externally   65
-Hosted Unsafely     2974
-=================  ===========
+============ ======= ========== =======
+\             PyPI    External   Total
+============ ======= ========== =======
+ **Safe**     37779   65         37844
+ **Unsafe**   0       2974       2974
+ **Total**    37779   3039
+============ ======= ========== =======
 
 
 Rejected Proposals
