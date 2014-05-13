@@ -84,7 +84,7 @@ install a file that is not hosted on PyPI typically the steps they follow are:
    ``--allow-external foobar``.
 2. They then attempt to install their package using
    ``pip install --allow-external foobar foobar``. If they are lucky foobar is
-   one of the YYYY packages whose latest is hosted externally and this will
+   one of the packages which is hosted externally and safely and this will
    succeed. If they are unlucky they will get a different error message
    suggesting that they *also* try ``--allow-unverified foobar``.
 3. They then attempt to install their package using
