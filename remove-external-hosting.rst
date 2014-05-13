@@ -1,5 +1,5 @@
 PEP: XXXX
-Title: Deprecation and Removal of Externally Linked Files
+Title: Using Multi Index Support for External to PyPI Package File Hosting
 Version: $Revision$
 Last-Modified: $Date$
 Author: Donald Stufft <donald@stufft.io>
@@ -16,10 +16,10 @@ Replaces: 438
 Abstract
 ========
 
-This PEP proposes a change in policy on PyPI to deprecate and ultimately remove
-the concept of externally hosted files. It further proposes a mechanism to
-replace this in a way that is simpler to implement and easier to reason about
-from an end user perspective.
+This PEP proposes that the official means of having an installer locate and
+find package files which are hosted externally to PyPI become the use of
+multi index support instead of the practice of using external links on the
+simple installer API.
 
 It is important to remember that this is **not** about forcing anyone to host
 their files on PyPI. If someone does not wish to do so they will never be under
