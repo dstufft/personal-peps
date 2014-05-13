@@ -156,7 +156,7 @@ have witnessed:
   someplace other than PyPI at all.
 
 In addition to that, the information that an installer is able to provide
-when an installation files is pretty minimal. We are able to detect if there
+when an installation fails is pretty minimal. We are able to detect if there
 are externally hosted files directly linked from the simple installer api,
 however we cannot detect if there are files hosted on a linked page without
 fetching that page and doing so would cause a massive performance hit just to
