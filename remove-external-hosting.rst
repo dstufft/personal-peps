@@ -51,13 +51,13 @@ linked to from that project's /simple/ page.
 There are a number of common confusion/pain points with this system that I
 have witnessed:
 
-* Users unaware what the ``/simple/`` page is at all or how an installer
+* Users unaware what the simple installer api is at all or how an installer
   locates installable files at all.
-* Users unaware that even if the ``/simple/`` page links to a file, if it does
+* Users unaware that even if the simple api links to a file, if it does
   not include a ``#md5=...`` fragment that it will be counted as unsafe.
 * Users unaware that an installer can look at pages linked from the
-  ``/simple/`` page to determine additional links, or that any links found in
-  this fashion are considered unsafe.
+  simple api to determine additional links, or that any links found in this
+  fashion are considered unsafe.
 * Users are unaware and often surprised that PyPI supports hosting your files
   someplace other than PyPI at all.
 
