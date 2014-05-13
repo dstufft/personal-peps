@@ -63,25 +63,25 @@ have witnessed:
 
 In addition to that, the information that an installer is able to provide
 when an installation files is pretty minimal. We are able to detect if there
-are externally hosted files directly linked from the simple installer api
+are externally hosted files directly linked from the simple installer api,
 however we cannot detect if there are files hosted on a linked page without
-fetching that page which would cause a massive performance hit just to see if
-there might be a file there so we can provide a better error message.
+fetching that page and doing so would cause a massive performance hit just to
+see if there might be a file there so that a better error message could be
+provided.
 
 Finally very few projects have properly linked to their external files so that
 they can be safely downloaded and verified. At the time of this writing there
-are a total of 65 projects which rely on externally and safely hosted files at
-all.
+are a total of 65 projects which have files that are only available externally
+and are safely hosted.
 
 The end result of all of this, is that with PEP438, when a user attempts to
 install a file that is not hosted on PyPI typically the steps they follow are:
 
 1. First, they attempt to install it normally, using ``pip install foobar``.
    This fails because the file is not hosted on PyPI and PEP438 has us default
-   to only hosted on PyPI, and if pip detected any externally hosted files
-   or other pages that we *could* have attempted to find other files at it
-   will give an error message suggesting that they try
-   ``--allow-external foobar``.
+   to only hosted on PyPI. If pip detected any externally hosted files or other
+   pages that we *could* have attempted to find other files at it will give an
+   error message suggesting that they try ``--allow-external foobar``.
 2. They then attempt to install their package using
    ``pip install --allow-external foobar foobar``. If they are lucky foobar is
    one of the packages which is hosted externally and safely and this will
@@ -115,9 +115,9 @@ PyPI that also ensures they are aware that they are doing so.
 
 To support projects that wish to externally host their files, regardless of
 reason, PyPI will gain the ability for project's to register external index
-URLs and additionally a comment associated with each index URL. These URLs
-will be made available on the simple page however they will not be linked or
-provided in a form that older installers will automatically search them.
+URLs and additionally an associated comment for each. These URLs will be made
+available on the simple page however they will not be linked or provided in a
+form that older installers will automatically search them.
 
 When an installer fetches the simple page for a project, if it finds this
 additional meta-data and it cannot find any files for that project in it's
@@ -135,10 +135,10 @@ Deprecation and Removal
 =======================
 
 A new hosting mode will be added to PyPI. This hosting mode will be called
-``pypi-only`` in addition to the three that PEP438 has already given us
-(``pypi-explicit``, ``pypi-scrape``, ``pypi-scrape-crawl``). This hosting mode
-will modify a project's ``/simple/`` page so that it only lists the files which
-are directly hosted on PyPI and will not link to anything else.
+``pypi-only`` and will be in addition to the three that PEP438 has already given
+us which are ``pypi-explicit``, ``pypi-scrape``, ``pypi-scrape-crawl``. This
+new hosting mode will modify a project's simple api page so that it only lists
+the files which are directly hosted on PyPI and will not link to anything else.
 
 Upon acceptance of this PEP and the addition of the ``pypi-only`` mode, all new
 projects will by defaulted to the PyPI only mode and they will be locked to
