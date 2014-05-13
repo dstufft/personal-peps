@@ -63,10 +63,10 @@ have witnessed:
 
 In addition to that, the information that an installer is able to provide
 when an installation files is pretty minimal. We are able to detect if there
-are externally hosted files directly linked from the ``/simple/`` however we
-cannot detect if there are files hosted on a linked page without fetching that
-page which would cause a massive performance hit just to see if there might be
-a file there so we can provide a better error message.
+are externally hosted files directly linked from the simple installer api
+however we cannot detect if there are files hosted on a linked page without
+fetching that page which would cause a massive performance hit just to see if
+there might be a file there so we can provide a better error message.
 
 Finally very few projects have properly linked to their external files so that
 they can be safely downloaded and verified. At the time of this writing there
