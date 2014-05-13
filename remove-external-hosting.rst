@@ -52,7 +52,7 @@ There are a number of common confusion/pain points with this system that I
 have witnessed:
 
 * Users unaware what the simple installer api is at all or how an installer
-  locates installable files at all.
+  locates installable files.
 * Users unaware that even if the simple api links to a file, if it does
   not include a ``#md5=...`` fragment that it will be counted as unsafe.
 * Users unaware that an installer can look at pages linked from the
