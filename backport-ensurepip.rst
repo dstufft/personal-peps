@@ -90,7 +90,7 @@ installing by default on OSX and Windows is the best course of action.
 Disabling ensurepip by Downstream Distributors
 ==============================================
 
-Due to it's use in the ``venv`` module downstream distributors cannot disable
+Due to it's use in the ``venv`` module, downstream distributors cannot disable
 the ``ensurepip`` module in Python 3.4. However since Python 2.7 has no such
 module it is explicitly allowed for downstream distributors to patch the
 ``ensurepip`` module to prevent it from installing anything.
