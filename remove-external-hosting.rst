@@ -18,7 +18,7 @@ Abstract
 
 This PEP proposes a mechanism for project authors to register with PyPI an
 external repository where their project's downloads can be located. This
-information can than be includes as part of the simple API so that installers
+information can than be included as part of the simple API so that installers
 can use it to tell users where the item they are attempting to install is
 located and what they need to do to enable this additional repository. In
 addition to adding discovery information to make explicit multiple repositories
@@ -115,8 +115,8 @@ called "autoindex"). This can be as simple as:
 
 
 Using this additional location within pip is also simple and can be included
-on a per invocation, per shell, or per user basis. The next version of pip will
-also include the ability to configure this on a per virtual environment or per
+on a per invocation, per shell, or per user basis. The pip 6.0 will also
+include the ability to configure this on a per virtual environment or per
 machine basis as well. This can be as simple as:
 
 ::
