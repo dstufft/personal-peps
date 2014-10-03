@@ -212,9 +212,9 @@ Installers SHOULD also implement some mechanism for removing or otherwise
 disabling use of the default repository. The exact specifics of how that is
 achieved is up to each indidivdual implementation.
 
-End users wishing to limit what files they pull from which index can simply use
-`devpi <http://doc.devpi.net/latest/>`_ to whitelist projects from PyPI or
-another repository.
+End users wishing to limit what files they pull from which repository can
+simply use `devpi <http://doc.devpi.net/latest/>`_ to whitelist projects from
+PyPI or another repository.
 
 
 External Index Discovery
