@@ -45,8 +45,8 @@ looking for things it could automatically download and install. Eventually this
 became the "Simple" API which used a similar URL structure however it
 eliminated any of the extraneous links and information to make the API more
 efficient. Additionally PyPI grew the ability for a project to upload release
-files directly to PyPI enabling PyPI to act as a repository in additional to
-an index.
+files directly to PyPI enabling PyPI to act as a repository in addition to an
+index.
 
 This gives PyPI two equally important roles that it plays in the Python
 ecosystem, that of index to enable easy discovery of Python projects and
@@ -121,8 +121,11 @@ machine basis as well. This can be as simple as:
 
 ::
 
+    $ # As a CLI argument
     $ pip install --extra-index-url https://index.example.com/ myproject
+    $ # As an environment variable
     $ PIP_EXTRA_INDEX_URL=https://pypi.example.com/ pip install myproject
+    $ # With a configuration file
     $ echo "[global]\nextra-index-url = https://pypi.example.com/" > ~/.pip/pip.conf
     $ pip install myproject
 
@@ -135,11 +138,11 @@ for quite some time support for PEP 438 has only existed in pip since the 1.4
 version, and still has yet to be implemented in setuptools. The design of
 PEP 438 did mean that users still benefited for projects which did not require
 external files even with older installers, however for projects which *did*
-require those users are still silently being given either potentionally
-unreliable or, even worse, unsafe files to download. This system is also unique
-to Python as it arises out of the history of PyPI, this means that it is almost
-certain that this concept will be foreign to most, if not all users, until they
-encounter it while attempting to use the Python toolchain.
+require external files, users are still silently being given either
+potentionally unreliable or, even worse, unsafe files to download. This system
+is also unique to Python as it arises out of the history of PyPI, this means
+that it is almost certain that this concept will be foreign to most, if not all
+users, until they encounter it while attempting to use the Python toolchain.
 
 Additionally, the classification system proposed by PEP 438 has, in practice,
 turned out to be extremely confusing to end users, so much so that it is a
@@ -155,10 +158,10 @@ install.
 
 This UX failure exists for several reasons.
 
-1. If pip can locate any files at all for a project on the Simple API it will
-   simply use that instead of attempting to locate anymore. This is generally
-   the right thing to do any attempting to locate any more would erase a large
-   part of the benefit of PEP 438. This means that if a project *ever* uploaded
+1. If pip can locate files at all for a project on the Simple API it will
+   simply use that instead of attempting to locate more. This is generally the
+   right thing to do as attempting to locate more would erase a large part of
+   the benefit of PEP 438. This means that if a project *ever* uploaded
    a file that matches what the user has requested for install that will be
    used regardless of how old it is.
 
@@ -172,8 +175,8 @@ This UX failure exists for several reasons.
    find the actual files, thus rendering the safe variant
    (``--allow-external``) largely useless.
 
-3. Even if an author wishes to directly linked to their files, doing so safely
-   is non-obvious. It requires the inclusion of a MD5 hash (for historical
+3. Even if an author wishes to directly link to their files, doing so safely is
+   non-obvious. It requires the inclusion of a MD5 hash (for historical
    reasons) in the hash of the URL. If they do not include this then their
    files will be considered "unverified".
 
@@ -199,11 +202,19 @@ Additionally the mechanism discovering an installation candidate when multiple
 repositories are being used is also up to each individual implementation,
 however once configured an implementation should not discourage, warn, or
 otherwise cast a negative light upon the use of a repository simply because it
-is not the primary repository.
+is not the default repository.
 
 Currently both pip and setuptools implement multiple repository support by
 using the best installation candidate it can find from either repository,
 essentially treating it as if it were one large repository.
+
+Installers SHOULD also implement some mechanism for removing or otherwise
+disabling use of the default repository. The exact specifics of how that is
+achieved is up to each indidivdual implementation.
+
+End users wishing to limit what files they pull from which index can simply use
+`devpi <http://doc.devpi.net/latest/>`_ to whitelist projects from PyPI or
+another repository.
 
 
 External Index Discovery
@@ -235,9 +246,12 @@ An example would look something like:
     <meta name="external-repository" content="https://index.example.com/Ubuntu-14.04/" data-description="Wheels built for Ubuntu 14.04">
 
 
-An external repository cannot be registered with PyPI while the project has any
-files uploaded nor will any new files be permitted to be uploaded while the
-external repository registration exists.
+When an external repository is added to a project, new uploads will no longer
+be permitted to that project. However any existing files will simply be hidden
+from the simple API and the web interface until all of the external repositories
+are removed, in which case they will be visible again. PyPI MUST warn authors
+if adding an external repository will hide files and that warning must persist
+on any of the project management pages for that particular project.
 
 When an installer fetches the simple page for a project, if it finds this
 additional meta-data and it cannot find any files for that project in it's
@@ -392,7 +406,7 @@ pyDes                          76
 PIL
 ---
 
-It's obvious from the numbers below that the vast bulk of the impact come from
+It's obvious from the numbers above that the vast bulk of the impact come from
 the PIL project. On 2014-05-17 an email was sent to the contact for PIL
 inquiring whether or not they would be willing to upload to PyPI. A response
 has not been received as of yet (2014-10-01) nor has any change in the hosting
