@@ -20,6 +20,13 @@ developers. This is offered as an alternative to PEP 474 which aims to achieve
 the same overall benefits but while continuing to use the Mercurial DVCS and
 without relying on a commerical entity.
 
+In particular this PEP proposes changes to the following repositories:
+
+* https://hg.python.org/devguide/
+* https://hg.python.org/devinabox/
+* https://hg.python.org/peps/
+
+
 This PEP does not propose any changes to the core development workflow for
 CPython itself.
 
@@ -116,10 +123,36 @@ onto a different solution. In other words, we'll cross that bridge if and when
 we come to it.
 
 
+Migration
+=========
+
+Through the use of hg-git [#hg-git]_ we can easily convert a Mercurial
+repository to a Git repository by simply pushing the Mercurial repository to
+the Git repository. People who wish to continue to use Mercurual locally can
+then use hg-git going into the future using the new Github URL, however they
+will need to re-clone their repositories as using Git as the server seems to
+trigger a one time change of the changeset ids.
+
+In addition to the migration of the repository hosting itself there are a
+number of locations for each particular repository which will require updating.
+The bulk of these will simply be changing commands from the hg equivilant to
+the git equivilant.
+
+
+User Access
+===========
+
+Moving to Github would involve adding an additional user account that will need
+to be managed, however it also offers finer grained control, allowing the
+ability to grant someone access to only one particular repository instead of
+the coarser grained ACLs available on hg.python.org.
+
+
 References
 ==========
 
 .. [#openhub-stats] `Open Hub Statistics <https://www.openhub.net/repositories/compare>`
+.. [#hg-git] `hg-git <https://hg-git.github.io/>`
 
 
 Copyright
