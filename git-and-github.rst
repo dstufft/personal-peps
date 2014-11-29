@@ -91,11 +91,14 @@ this isn't quite as good as git's branching model. All bookmarks live in the
 same namespace so it requires individual users to ensure that they namespace
 the branchnames themselves lest the risk collision. It also is an extension
 which requires new users to first discover they need an extension at all and
-then figure out what they need to do in order to enable that extension. Finally
-users who are not used to Mercurial are unlikely to discover bookmarks on their
-own, instead they will likely attempt to use Mercurial's "Named Branches"
-which, given the fact they live "forever", are not often what a project wants
-their contributors to use.
+then figure out what they need to do in order to enable that extension. Since
+it is an extension it also means that in general support for them outside of
+Mercurial core is going to be less than 100% in comparison to git where the
+feature is built in and core to using git at all. Finally users who are not
+used to Mercurial are unlikely to discover bookmarks on their own, instead they
+will likely attempt to use Mercurial's "Named Branches" which, given the fact
+they live "forever", are not often what a project wants their contributors to
+use.
 
 
 Why Github?
