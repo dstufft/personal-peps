@@ -79,6 +79,11 @@ repositories will transfer to projects outside of the immediate CPython project
 such as to the larger Python community which is primarily using Git hosted on
 Github.
 
+In previous years there was concern about how well supported git was on Windows
+in comparison to Mercurial. However git has grown to support Windows as a first
+class citizen. In addition to that, for Windows users who are not well aquanted
+with the Windows command line there are GUI options as well.
+
 
 Why Github?
 -----------
