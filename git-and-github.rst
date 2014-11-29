@@ -71,10 +71,22 @@ clear that git has gotten the vast mindshare of people who are currently using
 it. The Open Hub (Previously Ohloh) statistics [#openhub-stats]_ show that
 currently 37% of the repositories Open Hub is indexing is using git which is
 second only to SVN (which has 48%) while Mercurial has just 2% of the indexed
-repositories (beating only bazaar which has 1%). Chosing a DVCS which has the
-larger mindshare will make it more likely that any particular person who has
-experience with DVCS at all will be able to meaningfully use the DVCS that we
-have chosen without having to learn a new tool.
+repositories (beating only bazaar which has 1%). In additon to the Open Hub
+statistics a look at the top 100 projects (ordered by total download counts)
+shows us that within the Python space itself there is a majority of projects
+using git:
+
+=== ========= ========== ====== === ====
+Git Mercurial Subversion Bazaar CVS None
+=== ========= ========== ====== === ====
+62  22        7          4      1   1
+=== ========= ========== ====== === ====
+
+
+Chosing a DVCS which has the larger mindshare will make it more likely that any
+particular person who has experience with DVCS at all will be able to
+meaningfully use the DVCS that we have chosen without having to learn a new
+tool.
 
 In addition to simply making it more likely that any individual will already
 know how to use git, the number of projects and people using it means that the
@@ -134,7 +146,14 @@ Alexa where it currently has a global rank of 121. Much like for Git itself by
 choosing the most popular tool we gain benefits in increasing the likelhood
 that a new contributor will have already experienced the toolchain, the quality
 and availablity of the help, more and better tooling being built around it, and
-the knowledge transfer to other projects.
+the knowledge transfer to other projects. A look again at the top 100 projects
+by download counts on PyPI shows the following hosting locations:
+
+====== ========= =========== ========= =========== ==========
+GitHub BitBucket Google Code Launchpad SourceForge Other/Self
+====== ========= =========== ========= =========== ==========
+62     18        6           4         3           7
+====== ========= =========== ========= =========== ==========
 
 In addition to all of those reasons, Github also has the benefit that while
 many of the options have similar features when you look at them in a feature
