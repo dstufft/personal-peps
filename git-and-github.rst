@@ -45,6 +45,23 @@ However where PEP 474 wants to continue to use Mercurial and wishes to use an
 OSS and self-hosted and therefore restricts itself to only those solutions this
 PEP expands the scope of that to include migrating to Git and using Github.
 
+The existing method of contributing to these repositories generally includes
+generating a patch and either uploading them to bugs.python.org or emailing
+them to peps@python.org. This process is unfriendly towards non-comitter
+contributors as well as making the process harder than it needs to be for
+comitters to accept the patches sent by users. In addition to the benefits
+in the pull request workflow itself, this style of workflow also enables
+non techincal contributors, especially those who do not know their way around
+the DVCS of choice, to contribute using the web based editor. On the committer
+side the Pull Requests enable them to tell, before merging, whether or not
+a particular Pull Request will break anything. It also enables them to do a
+simple "push button" merge which does not require them to check out the
+changes locally. Another such feature that is useful in particular for docs,
+is the ability to view a "prose" diff. This Github specific feature enables
+a committer to view a diff of the rendered output which will hide things like
+reformatting a paragraph and show you what the actual "meat" of the change
+actually is.
+
 
 Why Git?
 --------
