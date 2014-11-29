@@ -42,7 +42,7 @@ primary integration branch. This simplicity makes them very good targets for
 the "Pull Request" workflow that is commonly found on sites like Github.
 
 However where PEP 474 wants to continue to use Mercurial and wishes to use an
-OSS and self hosted and therefore restricts itself to only those solutions this
+OSS and self-hosted and therefore restricts itself to only those solutions this
 PEP expands the scope of that to include migrating to Git and using Github.
 
 
@@ -85,7 +85,7 @@ Why Github?
 
 There are a number of software projects or web services which offer
 functionality similar to that of Github. These range from commerical web
-services such as a Bitbucket to self hosted OSS solutions such as Kallithea or
+services such as a Bitbucket to self-hosted OSS solutions such as Kallithea or
 Gitlab. This PEP proposes that we move these repositories to Github.
 
 There are two primary reasons for selecting Github: Popularity and
@@ -105,8 +105,8 @@ far more polished. This is hard to quantify objectively however it is a fairly
 common sentiment if you go around and ask people who are using these services
 often.
 
-Finally a reason to choose a web service at all over something that is self
-hosted is to be able to more efficiently use volunteer time and donated
+Finally a reason to choose a web service at all over something that is
+self-hosted is to be able to more efficiently use volunteer time and donated
 resources. Every additional service hosted on the PSF infrastruture by the
 PSF infrastructure team further spreads out the amount of time that the
 volunteers on that team have to spend and uses some chunk of resources that
