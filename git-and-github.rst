@@ -133,10 +133,36 @@ then use hg-git going into the future using the new Github URL, however they
 will need to re-clone their repositories as using Git as the server seems to
 trigger a one time change of the changeset ids.
 
+As none of the selected repositories have any tags, branches, or bookmarks
+other than the ``default`` branch the migration will simply map the ``default``
+branch in Mercurial to the ``master`` branch in git.
+
+In addition since none of the selected projects have any great need of a
+complex bug tracker, they will also migrate their issue handling to using the
+GitHub issues.
+
 In addition to the migration of the repository hosting itself there are a
 number of locations for each particular repository which will require updating.
 The bulk of these will simply be changing commands from the hg equivilant to
 the git equivilant.
+
+In particular this will include:
+
+* Updating www.python.org to generate PEPs using a git clone and link to
+  Github.
+* Updating docs.python.org to pull from Github instead of hg.python.org for the
+  devguide.
+* Enabling the ability to send an email to python-checkins@python.org for each
+  push.
+* Enabling the ability to send an IRC message to #python-dev on Freenode for
+  each push.
+* Migrate any issues for these projects to their respective bug tracker on
+  Github.
+
+This will restore these repositories to similar functionality as they currently
+have. In addition to this the migration will also include enabling testing for
+each pull request using Travis CI [#travisci]_ where possible to ensure that
+a new PR does not break the ability to render the documentation or PEPs.
 
 
 User Access
@@ -153,6 +179,7 @@ References
 
 .. [#openhub-stats] `Open Hub Statistics <https://www.openhub.net/repositories/compare>`
 .. [#hg-git] `hg-git <https://hg-git.github.io/>`
+.. [#travisci] `Travis CI <https://travis-ci.org/>`
 
 
 Copyright
