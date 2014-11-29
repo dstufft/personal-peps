@@ -72,9 +72,9 @@ it. The Open Hub (Previously Ohloh) statistics [#openhub-stats]_ show that
 currently 37% of the repositories Open Hub is indexing is using git which is
 second only to SVN (which has 48%) while Mercurial has just 2% of the indexed
 repositories (beating only bazaar which has 1%). In additon to the Open Hub
-statistics a look at the top 100 projects (ordered by total download counts)
-shows us that within the Python space itself there is a majority of projects
-using git:
+statistics a look at the top 100 projects on PyPI (ordered by total download
+counts) shows us that within the Python space itself there is a majority of
+projects using git:
 
 === ========= ========== ====== === ====
 Git Mercurial Subversion Bazaar CVS None
