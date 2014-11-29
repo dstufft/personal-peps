@@ -180,6 +180,34 @@ onto a different solution. In other words, we'll cross that bridge if and when
 we come to it.
 
 
+Example: Scientific Python
+--------------------------
+
+One of the key ideas behind the move to both git and Github is that a feature
+of a DVCS, the repository hosting, and the workflow used is the social network
+and size of the community using said tools. We can see this is true by looking
+at an example from a sub-community of the Python community: The Scientific
+Python community. They have already migrated most of the key pieces of the
+SciPy stack onto Github using the Pull Request based workflow starting with
+IPython and as more projects moved over it became a natural default for new
+projects.
+
+They claim to have seen a great benefit from this move, where it enables casual
+contributors to easily move between different projects within their
+sub-community without having to learn a special, bespoke workflow and a
+different toolchain for each project. They've found that when people can use
+their limited time on actually contributing instead of learning the different
+tools and workflows that not only do they contribute more to one project, that
+they also expand out and contribute to other projects. This move is also
+attributed to making it commonplace for members of that community to go so far
+as publishing their research and educational materials on Github as well.
+
+This showcases the real power behind moving to a highly popular toolchain and
+workflow, as each variance introduces yet another hurdle for new and casual
+contributors to get past and it makes the time spent learning that workflow
+less reusable with other projects.
+
+
 Migration
 =========
 
