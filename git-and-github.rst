@@ -1,9 +1,9 @@
-PEP: XXXX
+PEP: 481
 Title: Migrate Some Supporting Repositories to Git and Github
 Version: $Revision$
 Last-Modified: $Date$
 Author: Donald Stufft <donald@stufft.io>
-Status: Active
+Status: Draft
 Type: Process
 Content-Type: text/x-rst
 Created: 29-Nov-2014
