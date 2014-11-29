@@ -1,0 +1,139 @@
+PEP: XXXX
+Title: Migrate Some Supporting Repositories to Git and Github
+Version: $Revision$
+Last-Modified: $Date$
+Author: Donald Stufft <donald@stufft.io>
+Status: Active
+Type: Process
+Content-Type: text/x-rst
+Created: 29-Nov-2014
+Post-History: 29-Nov-2014
+
+
+Abstract
+========
+
+This PEP proposes migrating to Git and Github for certain supporting
+repositories (such as the repository for Python Enhancement Proposals) in a way
+that is more accessible to new contributors, and easier to manage for core
+developers. This is offered as an alternative to PEP 474 which aims to achieve
+the same overall benefits but while continuing to use the Mercurial DVCS and
+without relying on a commerical entity.
+
+This PEP does not propose any changes to the core development workflow for
+CPython itself.
+
+
+Rationale
+=========
+
+As PEP 474 mentions, there are currently a number of repositories hosted on
+hg.python.org which are not directly used for the development of CPython but
+instead are supporting or ancillary repositories. These supporting repositories
+do not typically have complex workflows or often branches at all other than the
+primary integration branch. This simplicity makes them very good targets for
+the "Pull Request" workflow that is commonly found on sites like Github.
+
+However where PEP 474 wants to continue to use Mercurial and wishes to use an
+OSS and self hosted and therefore restricts itself to only those solutions this
+PEP expands the scope of that to include migrating to Git and using Github.
+
+
+Why Git?
+--------
+
+Looking at the variety of DVCS which are available today it becomes fairly
+clear that git has gotten the vast mindshare of people who are currently using
+it. The Open Hub (Previously Ohloh) statistics [#openhub-stats]_ show that
+currently 37% of the repositories Open Hub is indexing is using git which is
+second only to SVN (which has 48%) while Mercurial has just 2% of the indexed
+repositories (beating only bazaar which has 1%). Chosing a DVCS which has the
+larger mindshare will make it more likely that any particular person who has
+experience with DVCS at all will be able to meaningfully use the DVCS that we
+have chosen without having to learn a new tool.
+
+In addition to simply making it more likely that any individual will already
+know how to use git, the number of projects and people using it means that the
+resources for learning the tool are likely to be more fully fleshed out and
+when you run into problems the liklihood that someone else had that problem
+and posted a question and recieved an answer is also far likelier.
+
+Thirdly by using a more popular tool you also increase your options for tooling
+*around* the DVCS itself. Looking at the various options for hosting
+repositories it's extremely rare to find a hosting solution (whether OSS or
+commerical) that supports Mercurial but does not support Git, on the flip side
+there are a number of tools which support Git but do not support Mercurial.
+Therefore the popularity of git increases the flexibility of our options going
+into the future for what toolchain these projects use.
+
+Finally by moving to the more popular DVCS we increase the likelhood that the
+knowledge that the person has learned in contributing to these support
+repositories will transfer to projects outside of the immediate CPython project
+such as to the larger Python community which is primarily using Git hosted on
+Github.
+
+
+Why Github?
+-----------
+
+There are a number of software projects or web services which offer
+functionality similar to that of Github. These range from commerical web
+services such as a Bitbucket to self hosted OSS solutions such as Kallithea or
+Gitlab. This PEP proposes that we move these repositories to Github.
+
+There are two primary reasons for selecting Github: Popularity and
+Quality/Polish.
+
+Github is currently the most popular hosted repository hosting according to
+Alexa where it currently has a global rank of 121. Much like for Git itself by
+choosing the most popular tool we gain benefits in increasing the likelhood
+that a new contributor will have already experienced the toolchain, the quality
+and availablity of the help, more and better tooling being built around it, and
+the knowledge transfer to other projects.
+
+In addition to all of those reasons, Github also has the benefit that while
+many of the options have similar features when you look at them in a feature
+matrix the Github version of each of those features tend to work better and be
+far more polished. This is hard to quantify objectively however it is a fairly
+common sentiment if you go around and ask people who are using these services
+often.
+
+Finally a reason to choose a web service at all over something that is self
+hosted is to be able to more efficiently use volunteer time and donated
+resources. Every additional service hosted on the PSF infrastruture by the
+PSF infrastructure team further spreads out the amount of time that the
+volunteers on that team have to spend and uses some chunk of resources that
+could potentionally be used for something where there is no free or affordable
+hosted solution available.
+
+One concern that people do have with using a hosted service is that there is a
+lack of control and that at some point in the future the service may no longer
+be suitable. It is the opinion of this PEP that Github does not currently and
+has not in the past engaged in any attempts to lock people into their platform
+and that if at some point in the future Github is no longer suitable for one
+reason or another than at that point we can look at migrating away from Github
+onto a different solution. In other words, we'll cross that bridge if and when
+we come to it.
+
+
+References
+==========
+
+.. [#openhub-stats] `Open Hub Statistics <https://www.openhub.net/repositories/compare>`
+
+
+Copyright
+=========
+
+This document has been placed in the public domain.
+
+
+
+..
+   Local Variables:
+   mode: indented-text
+   indent-tabs-mode: nil
+   sentence-end-double-space: t
+   fill-column: 70
+   coding: utf-8
+   End:
