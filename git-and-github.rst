@@ -240,6 +240,9 @@ In particular this will include:
   each push.
 * Migrate any issues for these projects to their respective bug tracker on
   Github.
+* Use hg-git to provide a read-only mirror on hg.python.org which will enable
+  read-only uses of the hg.python.org instances of the specified repositories
+  to remain the same.
 
 This will restore these repositories to similar functionality as they currently
 have. In addition to this the migration will also include enabling testing for
