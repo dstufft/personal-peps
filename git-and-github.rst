@@ -41,17 +41,17 @@ do not typically have complex workflows or often branches at all other than the
 primary integration branch. This simplicity makes them very good targets for
 the "Pull Request" workflow that is commonly found on sites like Github.
 
-However whereas PEP 474 proposes to continue to use Mercurial and restricts itself
-to only solutions which are OSS and self-hosted, this PEP expands the scope of
-that to include migrating to Git and using Github.
+However whereas PEP 474 proposes to continue to use Mercurial and restricts
+itself to only solutions which are OSS and self-hosted, this PEP expands the
+scope of that to include migrating to Git and using Github.
 
 The existing method of contributing to these repositories generally includes
 generating a patch and either uploading them to bugs.python.org or emailing
 them to peps@python.org. This process is unfriendly towards non-comitter
 contributors as well as cumbersome for comitters seeking to accept the patches
-sent by users. In contrast, the Pull Request workflow style enables non techincal
-contributors, especially those who do not know their way around the DVCS of
-choice, to contribute using the web based editor. On the committer
+sent by users. In contrast, the Pull Request workflow style enables non
+techincal contributors, especially those who do not know their way around the
+DVCS of choice, to contribute using the web based editor. On the committer
 side, the Pull Requests enable them to tell, before merging, whether or not
 a particular Pull Request will break anything. It also enables them to do a
 simple "push button" merge which does not require them to check out the
@@ -67,12 +67,12 @@ Why Git?
 
 Looking at the variety of DVCS which are available today, it becomes fairly
 clear that git has the largest mindshare. The Open Hub (Previously Ohloh)
-statistics [#openhub-stats]_ show that currently 37% of the repositories indexed
-by Open Hub are using git which is second only to SVN (which has 48%), while
-Mercurial has just 2% of the indexed repositories (beating only bazaar which
-has 1%). In additon to the Open Hub statistics, a look at the top 100 projects
-on PyPI (ordered by total download counts) shows that within the Python space
-itself, the majority of projects use git.
+statistics [#openhub-stats]_ show that currently 37% of the repositories
+indexed by Open Hub are using git which is second only to SVN (which has 48%),
+while Mercurial has just 2% of the indexed repositories (beating only bazaar
+which has 1%). In additon to the Open Hub statistics, a look at the top 100
+projects on PyPI (ordered by total download counts) shows that within the
+Python space itself, the majority of projects use git.
 
 === ========= ========== ====== === ====
 Git Mercurial Subversion Bazaar CVS None
@@ -91,8 +91,8 @@ resources for learning the tool are likely to be more fully fleshed out.
 When you run into problems, the liklihood that someone else had that problem
 and posted a question and recieved an answer is also far likelier.
 
-Thirdly, by using a more popular tool you also increase your options for tooling
-*around* the DVCS itself. Looking at the various options for hosting
+Thirdly, by using a more popular tool you also increase your options for
+tooling *around* the DVCS itself. Looking at the various options for hosting
 repositories, it's extremely rare to find a hosting solution (whether OSS or
 commerical) that supports Mercurial but does not support Git. On the flip side,
 there are a number of tools which support Git but do not support Mercurial.
@@ -106,9 +106,9 @@ such as to the larger Python community which is primarily using Git hosted on
 Github.
 
 In previous years there was concern about how well supported git was on Windows
-in comparison to Mercurial. However, git has grown to support Windows as a first
-class citizen. In addition to that, for Windows users who are not well aquanted
-with the Windows command line, there are GUI options as well.
+in comparison to Mercurial. However, git has grown to support Windows as a
+first class citizen. In addition to that, for Windows users who are not well
+aquanted with the Windows command line, there are GUI options as well.
 
 On a techincal level git and Mercurial are fairly similar, however the git
 branching model is signifcantly better than Mercurial "Named Branches" for
@@ -118,12 +118,12 @@ same namespace so it requires individual users to ensure that they namespace
 the branchnames themselves lest the risk collision. It also is an extension
 which requires new users to first discover they need an extension at all, and
 then figure out what they need to do in order to enable that extension. Since,
-in contrast to the branching feature in git, this featurize is a Mercurial
-extension, in general, its support outside the Mercurial core is less extensive.
-Finally, users who are not used to Mercurial are unlikely to discover bookmarks
-on their own, instead they will likely attempt to use Mercurial's "Named Branches"
-which, given the fact they live "forever", are not often what a project wants
-their contributors to use.
+in contrast to the branching feature in git, this feature is a Mercurial
+extension, in general, its support outside the Mercurial core is less
+extensive. Finally, users who are not used to Mercurial are unlikely to
+discover bookmarks on their own, instead they will likely attempt to use
+Mercurial's "Named Branches" which, given the fact they live "forever", are not
+often what a project wants their contributors to use.
 
 
 Why Github?
@@ -138,8 +138,8 @@ There are two primary reasons for selecting Github: Popularity and
 Quality/Polish.
 
 Github is currently the most popular hosted repository hosting according to
-Alexa, where it currently has a global rank of 121. Much like for Git itself, by
-choosing the most popular tool we gain benefits in increasing the likelhood
+Alexa, where it currently has a global rank of 121. Much like for Git itself,
+by choosing the most popular tool we gain benefits in increasing the likelhood
 that a new contributor will have already experienced the toolchain, the quality
 and availablity of the help, more and better tooling being built around it, and
 the knowledge transfer to other projects. A look again at the top 100 projects
@@ -188,20 +188,21 @@ SciPy stack onto Github using the Pull Request based workflow. This process
 started with IPython, and as more projects moved over it became a natural
 default for new projects in the community.
 
-They claim to have seen a great benefit from this move, in that it enables casual
-contributors to easily move between different projects within their
+They claim to have seen a great benefit from this move, in that it enables
+casual contributors to easily move between different projects within their
 sub-community without having to learn a special, bespoke workflow and a
 different toolchain for each project. They've found that when people can use
 their limited time on actually contributing instead of learning the different
 tools and workflows that, not only do they contribute more to one project, but
 that they also expand out and contribute to other projects. This move has also
 been attributed to the increased tendency for members of that community to go
-so far as publishing their research and educational materials on Github as well.
+so far as publishing their research and educational materials on Github as
+well.
 
-This example showcases the real power behind moving to a highly popular toolchain
-and workflow, as each variance introduces yet another hurdle for new and casual
-contributors to get past and it makes the time spent learning that workflow
-less reusable with other projects.
+This example showcases the real power behind moving to a highly popular
+toolchain and workflow, as each variance introduces yet another hurdle for new
+and casual contributors to get past and it makes the time spent learning that
+workflow less reusable with other projects.
 
 
 Migration
